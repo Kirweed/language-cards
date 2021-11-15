@@ -1,0 +1,10 @@
+.noItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    height: 10vh;
+    margin: 100px auto;
+    color: darkgray;
+    font-size: 20px;
+}

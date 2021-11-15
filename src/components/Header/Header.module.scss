@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    background-color: #428554;
+    text-align: center;
+    align-items: center;
+    color: lightgrey;
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+
+    .logo {
+        letter-spacing: 1px;
+        margin: 10px 25px;
+        color: lightgrey;
+    }
+}
+
+.navLink {
+    text-decoration: none;
+    color: lightgrey;
+    margin-right: 50px;
+}
