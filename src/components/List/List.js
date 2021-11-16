@@ -2,11 +2,12 @@ import React from "react";
 import ListItem from "./ListItem";
 import styles from './List.module.scss';
 
-const List = ({collections}) => (
+const List = ({collections, openModalFn}) => (
     <div className={styles.wrapper} >
         {collections.map(collection => (
-        <ListItem key={collection.id} {...collection}/>
-        )) }
+            <ListItem key={collection.id} {...collection}/>
+        ))}
+        <ListItem openModalFn={openModalFn}/>
     </div>
 );
 

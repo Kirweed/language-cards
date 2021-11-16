@@ -4,10 +4,16 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => (
     <header className={styles.wrapper}>
-        <NavLink end to='/' className={styles.navLink}>
+        <NavLink 
+            end to='/' 
+            className={({ isActive }) => styles.navLink + " " + (isActive ? styles.navLinkActive : "")}
+        >
             <h1 className={styles.logo}>SŁOWOTEKA</h1>
         </NavLink>
-        <NavLink to='/collections' className={styles.navLink}>
+        <NavLink 
+            to='/collections' 
+            className={({ isActive }) => styles.navLink + " " + (isActive ? styles.navLinkActive : "")}
+        >
             Kolekcje
         </NavLink>
     </header>
