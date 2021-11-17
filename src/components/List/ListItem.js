@@ -1,5 +1,6 @@
 import React from "react";
 import AddButton from "../Button/AddButton";
+import AppContext from "../context";
 import styles from './ListItem.module.scss';
 
 const ListItem = ({id, nativeLang, foreignLang, description, ...props}) => {
@@ -20,13 +21,19 @@ const ListItem = ({id, nativeLang, foreignLang, description, ...props}) => {
     }
 
     return (
-        id ? 
-            <div className={styles.wrapper}>
+        id ? <AppContext.Consumer>
+            { (context) => (
+                <div className={styles.wrapper}>
+                <div className={styles.deleteButton} onClick={() => context(id)}>
+                    <i class="fas fa-trash"></i>
+                </div>
                 Aktualnie uczysz się: 
                 <h2>{foreignLang}</h2>
                 <h3>{nativeLang}</h3>
                 <p className={styles.description}>{preparedDescription}</p>
-            </div> : 
+            </div>
+            )} 
+            </AppContext.Consumer> : 
             <div 
                 className={styles.wrapper + ' ' + styles.wrapperCollectionPlaceholder} 
                 onClick={props.openModalFn}

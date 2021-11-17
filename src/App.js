@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import AppContext from './components/context';
 import Header from './components/Header/Header';
 import CollectionsView from './views/CollectionsView/CollectionsView';
 import RootView from './views/RootView/RootView';
@@ -61,24 +62,36 @@ class App extends React.Component {
       collections: [...prevState.collections, newItem],
     }));
   }
+
+  removeCollection = (idToRemove) => {
+    const newCollection = this.state.collections.filter((element) => (
+      element.id !== idToRemove
+    ));
+
+    this.setState({
+      collections: [...newCollection],
+    });
+  }
   
   render() {
     return (
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route 
-            exact path='/' 
-            element={<RootView />} 
-          />
-          <Route 
-            path='/collections' 
-            element= {<CollectionsView 
-              collections={this.state.collections} 
-              addCollectionFn={this.addCollection}
-            />} 
-          />
-        </Routes>
+        <AppContext.Provider value={this.removeCollection}>
+          <Routes>
+            <Route 
+              exact path='/' 
+              element={<RootView />} 
+            />
+            <Route 
+              path='/collections' 
+              element= {<CollectionsView 
+                collections={this.state.collections} 
+                addCollectionFn={this.addCollection}
+              />} 
+            />
+          </Routes>
+        </AppContext.Provider>
       </BrowserRouter>
     );
   }
