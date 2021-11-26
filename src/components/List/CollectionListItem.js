@@ -3,7 +3,7 @@ import AddButton from "../Button/AddButton";
 import AppContext from "../context";
 import styles from "./ListItem.module.scss";
 
-const ListItem = ({
+const CollectionListItem = ({
   id,
   nativeLang,
   foreignLang,
@@ -27,7 +27,7 @@ const ListItem = ({
     }
   }
 
-  return id ? (
+  return Number.isInteger(id) ? (
     <AppContext.Consumer>
       {(context) => (
         <div className={styles.wrapper}>
@@ -52,4 +52,4 @@ const ListItem = ({
   );
 };
 
-export default ListItem;
+export default CollectionListItem;

@@ -5,6 +5,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.wordsCountWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid lightgrey;
 }
 
 .header {

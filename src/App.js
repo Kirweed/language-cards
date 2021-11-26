@@ -4,11 +4,10 @@ import AppContext from "./components/context";
 import Header from "./components/Header/Header";
 import CollectionsView from "./views/CollectionsView/CollectionsView";
 import CollectionView from "./views/CollectionsView/CollectionView";
-import RootView from "./views/RootView/RootView";
 
 const debugColection = [
   {
-    id: 1,
+    id: 0,
     topic: "Jedzenie",
     nativeLang: "Polski",
     foreignLang: "Angielski",
@@ -18,10 +17,41 @@ const debugColection = [
     pretium id est vitae, condimentum fermentum ligula. Curabitur non nisl varius, dignissim 
     enim et, pretium justo. Duis at eros non nibh sodales ultrices. Ut feugiat, odio vel tincidunt 
     pellentesque, orci lorem eleifend est, sed interdum eros justo sed massa. Suspendisse feugiat est ut ex ornare, eget condimentum ante mattis.`,
-    items: [],
+    items: [
+      {
+        id: 0,
+        nativeWord: "banan",
+        foreignWord: "banana",
+      },
+      {
+        id: 1,
+        nativeWord: "jabłko",
+        foreignWord: "apple",
+      },
+      {
+        id: 2,
+        nativeWord: "pomarańcza",
+        foreignWord: "orange",
+      },
+      {
+        id: 3,
+        nativeWord: "winogrona",
+        foreignWord: "grapes",
+      },
+      {
+        id: 4,
+        nativeWord: "masło",
+        foreignWord: "butter",
+      },
+      {
+        id: 5,
+        nativeWord: "mleko",
+        foreignWord: "milk",
+      },
+    ],
   },
   {
-    id: 2,
+    id: 1,
     topic: "Rodzina",
     nativeLang: "Polski",
     foreignLang: "Hiszpański",
@@ -34,7 +64,7 @@ const debugColection = [
     items: [],
   },
   {
-    id: 3,
+    id: 2,
     topic: "osobowość",
     nativeLang: "Polski",
     foreignLang: "Japoński",
@@ -56,7 +86,10 @@ class App extends React.Component {
   addCollection = (e) => {
     e.preventDefault();
     const newItem = {
-      id: this.state.collections[this.state.collections.length - 1].id + 1,
+      id:
+        this.state.collections.length == 0
+          ? 0
+          : this.state.collections[this.state.collections.length - 1].id + 1,
       topic: e.target[0].value,
       nativeLang: e.target[2].value,
       foreignLang: e.target[1].value,
@@ -87,7 +120,6 @@ class App extends React.Component {
         <Header />
         <AppContext.Provider value={this.removeCollection}>
           <Routes>
-            <Route exact path="/" element={<RootView />} />
             <Route
               exact
               path="/collections"
