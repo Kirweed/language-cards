@@ -1,7 +1,7 @@
 """languageCards URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import SimpleRouter
-from api.viewsets import UserViewSet, LoginViewSet, RegistrationViewSet, RefreshViewSet
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from api.views import LanguageCardsViewSet
 
-routes = SimpleRouter()
 
-routes.register(r'auth/login', LoginViewSet, basename='auth-login')
-routes.register(r'auth/register', RegistrationViewSet, basename='auth-register')
-routes.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
-routes.register(r'user', UserViewSet, basename='user')
+router = DefaultRouter()
+router.register(r'language-cards', LanguageCardsViewSet, basename='language_cards')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rest/', include(routes.urls)),
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('', include(router.urls)),
 ]
