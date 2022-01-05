@@ -6,6 +6,7 @@ manage.py
 *.pyc
 *.sqlite3
 settings.py
+migrations/
 
 # dependencies
 /node_modules
