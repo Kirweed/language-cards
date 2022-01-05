@@ -4,6 +4,8 @@
 venv/
 manage.py
 *.pyc
+*.sqlite3
+settings.py
 
 # dependencies
 /node_modules
