@@ -1,6 +1,6 @@
 import React from "react";
-import Heading from "../atoms/Heading";
 import styled from "styled-components";
+import Heading from "../atoms/Heading";
 
 const StyledHeading = styled(Heading)`
   color: #e85a4f;

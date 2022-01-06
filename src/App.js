@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import styled, { css } from "styled-components";
 import Footer from "./components/atoms/Footer";
 import Header from "./components/molecules/Header";
 import Paragraph from "./components/atoms/Paragraph";
 import GlobalStyles from "./theme/GlobalStyles";
-import styled, { css } from "styled-components";
 import Button from "./components/atoms/Button";
+import SignUpModal from "./components/organisms/SignUpModal";
 
 const yourJWTToken =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQxNDE1ODk2LCJpYXQiOjE2NDE0MTU1OTYsImp0aSI6ImFjNzY1YTQwZDU4YjQ3ZWM4MzhiM2MwNzc3ZjM5YTZiIiwidXNlcl9pZCI6MX0.ktIuSTZGCusZDZelOT_LvqLRcvYM67NPjHPt2UGWSNA";
@@ -14,7 +15,7 @@ const getData = () => {
   axios
     .get("http://127.0.0.1:8000/language-cards/", {
       headers: {
-        Authorization: "Bearer " + yourJWTToken,
+        Authorization: `Bearer ${yourJWTToken}`,
       },
     })
     .then((res) => console.log(res))
@@ -65,6 +66,7 @@ const App = () => {
     <>
       <GlobalStyles />
       <StyledButton secondary>Sign up!</StyledButton>
+      <SignUpModal />
       <Header />
       <StyledMainWrapper>
         <StyledWrapper left>
