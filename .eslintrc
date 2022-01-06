@@ -1,0 +1,43 @@
+{
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+        }
+      }
+    },
+    "parserOptions": { "ecmaVersion": 2020 },
+    "env": {
+      "jest": true 
+    },
+    "globals": {
+      "document": true,
+      "window": true
+    },
+    "rules": {
+      "react/destructuring-assignment": 1,
+      "react/state-in-constructor": 0,
+      "import/no-unresolved": 1,
+      "react/jsx-filename-extension": [
+        1, 
+        { 
+          "extensions": [".js", ".jsx"] 
+        }
+      ],
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function",
+          "unnamedComponents": "arrow-function"
+        }
+      ],
+      "react/jsx-props-no-spreading": "off",
+      "import/prefer-default-export": "off",
+      "react/no-unescaped-entities": 0,
+      "import/no-extraneous-dependencies" : 0
+    } 
+}

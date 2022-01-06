@@ -1,0 +1,19 @@
+import React from "react";
+import Heading from "../atoms/Heading";
+import styled from "styled-components";
+
+const StyledHeading = styled(Heading)`
+  color: #e85a4f;
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  height: 15vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Header = () => <StyledHeading>Language-cards.pl</StyledHeading>;
+
+export default Header;

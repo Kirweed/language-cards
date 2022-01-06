@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class UserInfoViewSet(viewsets.ModelViewSet):
