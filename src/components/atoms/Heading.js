@@ -3,9 +3,9 @@ import styled from "styled-components";
 const Heading = styled.h1`
   margin: 10px;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   letter-spacing: 1.5px;
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-transform: uppercase;
 `;
 

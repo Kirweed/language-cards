@@ -5,8 +5,8 @@ const Paragraph = styled.p`
   margin: 10px;
   text-align: justify;
   font-weight: 500;
-  font-size: 1.2rem;
-  color: #8e8d8a;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.colors.dark};
 `;
 
 export default Paragraph;

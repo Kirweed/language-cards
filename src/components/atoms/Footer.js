@@ -11,8 +11,8 @@ const StyledFooter = styled.footer`
   bottom: 0;
   z-index: 100;
   text-align: center;
-  color: #e85a4f;
-  font-weight: 700;
+  color: ${({ theme }) => theme.colors.darkRed};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Footer = () => (

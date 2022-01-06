@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Heading from "../atoms/Heading";
 
 const StyledHeading = styled(Heading)`
-  color: #e85a4f;
+  color: ${({ theme }) => theme.colors.darkRed};
   position: fixed;
   z-index: 90;
   top: 0;

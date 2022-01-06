@@ -3,12 +3,12 @@ import styled, { css } from "styled-components";
 const Button = styled.button`
   width: 200px;
   height: 130px;
-  background-color: #e85a4f;
+  background-color: ${({ theme }) => theme.colors.darkRed};
   border: none;
   border-radius: 10px;
-  color: #eae7dc;
-  font-size: 1.4rem;
-  font-weight: 700;
+  color: ${({ theme }) => theme.colors.light};
+  font-size: ${({ theme }) => theme.fontSize.l};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   transition: transform ease-in-out 0.4s;
 
   &:hover {
@@ -21,7 +21,7 @@ const Button = styled.button`
     css`
       width: 130px;
       height: 80px;
-      background-color: #8e8d8a;
+      background-color: ${({ theme }) => theme.colors.dark};
     `}
 `;
 

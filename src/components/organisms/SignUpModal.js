@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import DarkOverlay from "../atoms/DarkOverlay";
 import Form from "../molecules/Form";
@@ -15,14 +16,20 @@ const StyledFormWrapper = styled.div`
   padding: 20px;
 `;
 
-const SignUpModal = () => (
-  <>
-    <DarkOverlay />
-    <StyledFormWrapper>
-      <Heading>Sign Up</Heading>
-      <Form />
-    </StyledFormWrapper>
-  </>
-);
+const SignUpModal = ({ showed, handleModalFn }) =>
+  showed && (
+    <>
+      <DarkOverlay onClick={handleModalFn} />
+      <StyledFormWrapper>
+        <Heading>Sign Up</Heading>
+        <Form />
+      </StyledFormWrapper>
+    </>
+  );
+
+SignUpModal.propTypes = {
+  showed: PropTypes.bool.isRequired,
+  handleModalFn: PropTypes.func.isRequired,
+};
 
 export default SignUpModal;
