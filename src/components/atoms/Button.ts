@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.button`
+const Button = styled.button<{secondary?: boolean}>`
   width: 200px;
   height: 130px;
   background-color: ${({ theme }) => theme.colors.darkRed};

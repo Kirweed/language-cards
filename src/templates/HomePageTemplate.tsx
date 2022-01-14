@@ -21,26 +21,26 @@ const StyledButton = styled(Button)`
   right: 30px;
 `;
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{left?: boolean, right?: boolean}>`
   height: 60vh;
   border-left: 2px solid ${({ theme }) => theme.colors.darkRed};
 
   ${({ left }) =>
-    left &&
+    left ?
     css`
       width: 70%;
       border: none;
       border-right: 2px solid ${({ theme }) => theme.colors.darkRed};
-    `}
+    ` : ''}
 
   ${({ right }) =>
-    right &&
+    right ?
     css`
       width: 30%;
       display: flex;
       justify-content: center;
       align-items: center;
-    `}
+    ` : ''}
 `;
 
 const HomePageTemplate = () => {

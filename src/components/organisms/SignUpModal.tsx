@@ -16,16 +16,16 @@ const StyledFormWrapper = styled.div`
   padding: 20px;
 `;
 
-const SignUpModal = ({ showed, handleModalFn }) =>
-  showed && (
+const SignUpModal = ({ showed, handleModalFn } : {showed: boolean, handleModalFn: any}) =>
+  showed ? (
     <>
       <DarkOverlay onClick={handleModalFn} />
       <StyledFormWrapper>
         <Heading>Sign Up</Heading>
         <Form />
       </StyledFormWrapper>
-    </>
-  );
+    </>) : null
+;
 
 SignUpModal.propTypes = {
   showed: PropTypes.bool.isRequired,

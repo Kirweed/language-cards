@@ -1,6 +1,7 @@
 {
     "extends": [
       "airbnb",
+      "airbnb-typescript",
       "prettier"
     ],
     "settings": {
@@ -10,7 +11,10 @@
         }
       }
     },
-    "parserOptions": { "ecmaVersion": 2020 },
+    "parserOptions": { 
+      "ecmaVersion": 2020,
+      "project": ["tsconfig.json"]
+    },
     "env": {
       "jest": true 
     },
@@ -25,7 +29,7 @@
       "react/jsx-filename-extension": [
         1, 
         { 
-          "extensions": [".js", ".jsx"] 
+          "extensions": [".js", ".jsx", ".tsx"] 
         }
       ],
       "react/function-component-definition": [
