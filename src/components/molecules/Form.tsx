@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
-import TokenContext from "../../context";
+import { useAuth } from "../../context";
 
 const StyledForm = styled.form`
   height: 80%;
@@ -17,7 +16,7 @@ const StyledForm = styled.form`
 `;
 
 const Form = () => {
-  const { setTokens } = useContext(TokenContext);
+  const auth = useAuth();
 
   const handleLogin = (e: any) => {
     
@@ -25,17 +24,7 @@ const Form = () => {
     const username = e.target.username.value;
     const password = e.target.password.value;
 
-    axios
-      .post("http://127.0.0.1:8000/api/auth/token/", {
-        username,
-        password,
-      })
-      .then(({ data }) => {
-        if (data.access && data.refresh) {
-          setTokens({ access: data.access, refresh: data.refresh });
-        }
-      })
-      .catch((err) => console.log(err));
+    auth.logIn(username, password);
   };
 
   return (
@@ -45,8 +34,7 @@ const Form = () => {
       <Button secondary type="submit">
         Sign Up!
       </Button>
-    </StyledForm>
-  );
+    </StyledForm>);
 };
 
 export default Form;

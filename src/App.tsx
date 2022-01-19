@@ -2,16 +2,19 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import GlobalStyles from "./theme/GlobalStyles";
-import { TokenProvider } from "./context";
-import NavigateTemplate from "./templates/NavigateTemplate";
+import { useAuth } from "./context";
+import UnAuthNavigateTemplate from "./templates/UnAuthNavigateTemplate";
+import AuthNavigateTemplate from "./templates/AuthNavigateTemplate";
 
-const App = () => (
-  <TokenProvider>
+const App = () => {
+  const auth = useAuth();
+
+  return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <NavigateTemplate />
+      {auth.isAuthenticated ? <AuthNavigateTemplate /> : <UnAuthNavigateTemplate />}
     </ThemeProvider>
-  </TokenProvider>
-);
+  )
+}
 
 export default App;

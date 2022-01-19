@@ -1,38 +1,59 @@
-import React, { ReactNode, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios"
 
-interface TokensInterface {
-  access: string | null,
-  refresh: string | null
-}
-type ContextInterface = {
-  tokens: TokensInterface,
-  setTokens: (c: TokensInterface) => void
+interface ContextInterface {
+  isAuthenticated: boolean,
+  logIn: any,
+  logOut: any
 }
 
-const TokenContext = React.createContext<ContextInterface>({
-  tokens: {
-    access: null,
-    refresh: null
-  },
-  setTokens: () => null
-});
+const TokenContext = React.createContext<ContextInterface>({isAuthenticated: false, logIn: () => {}, logOut: () => {}});
 
-export const TokenProvider = ({ children } : { children: ReactNode}) => {
-  const [tokens, setTokens] = useState<TokensInterface>({
-      access: null,
-      refresh: null
-  });
+export const TokenProvider = ({children} : {children: React.ReactNode}) => {
+  const [isAuthenticated, authenticate] = useState(false);
 
-  return (
-    <TokenContext.Provider value={{ tokens, setTokens }}>
-      {children}
-    </TokenContext.Provider>
-  );
-};
+  useEffect(() => {
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    
+    if(token) {
+      authenticate(true);
+    } else {
+      authenticate(false);
+    }
+  })
 
-TokenProvider.propTypes = {
-  children: PropTypes.element.isRequired,
-};
+  const logIn = (username: string, password: string) => {
+    axios
+      .post("http://127.0.0.1:8000/api/auth/token/", {
+        username,
+        password,
+      })
+      .then(({ data }) => {
+        if (data.access && data.refresh) {
+          localStorage.setItem('ACCESS_TOKEN', data.access);
+          localStorage.setItem('REFRESH_TOKEN', data.refresh);
+          authenticate(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const logOut = () => {
+    localStorage.removeItem('ACCESS_TOKEN');
+    authenticate(false);
+  }
+
+
+  return <TokenContext.Provider value={{isAuthenticated, logIn, logOut}}>
+    {children}
+  </TokenContext.Provider>
+
+}
+
+export const useAuth = () => {
+  const auth = useContext(TokenContext);
+
+  return auth;
+}
 
 export default TokenContext;
