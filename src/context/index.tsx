@@ -14,11 +14,41 @@ export const TokenProvider = ({children} : {children: React.ReactNode}) => {
 
   useEffect(() => {
     const token = localStorage.getItem('ACCESS_TOKEN');
+    const refreshToken = localStorage.getItem('REFRESH_TOKEN');
+
+    const getAccessTokenByRefreshToken = () => {
+      if(refreshToken) {
+        axios
+       .post("http://127.0.0.1:8000/api/auth/token/refresh/", {
+           refresh: refreshToken,
+       }).then(response => {
+         if(response.status === 200) {
+          localStorage.setItem('ACCESS_TOKEN', response.data.access);
+          authenticate(true);
+         } else {
+           authenticate(false);
+         }
+       }).catch(() => authenticate(false));
+      } else {
+          authenticate(false);
+      }
+    }
     
     if(token) {
-      authenticate(true);
+      axios
+       .get("http://127.0.0.1:8000/language-cards/", {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       }).then(response => {
+        if(response.status === 200) {
+          authenticate(true);
+        } else {
+          authenticate(false)
+        }
+       }).catch(() => getAccessTokenByRefreshToken())
     } else {
-      authenticate(false);
+      getAccessTokenByRefreshToken();
     }
   })
 
@@ -40,6 +70,7 @@ export const TokenProvider = ({children} : {children: React.ReactNode}) => {
 
   const logOut = () => {
     localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
     authenticate(false);
   }
 
