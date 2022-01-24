@@ -53,7 +53,7 @@ const HomePageTemplate = () => {
   return (
     <>
       <StyledButton secondary onClick={handleModal}>
-        Sign up!
+        Sign in!
       </StyledButton>
       <SignUpModal showed={isModalOpen} handleModalFn={handleModal} />
       <Header />
