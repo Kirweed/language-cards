@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
+class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -16,6 +16,15 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password', 'email']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email']
+
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

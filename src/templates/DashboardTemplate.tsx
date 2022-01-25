@@ -51,13 +51,13 @@ const DashboardTemplate = () => {
     return (
         <>
         <Header />
-        <StyledGrid>
-            <StyledBox><span>Mange</span><i className="fas fa-sitemap" /></StyledBox>
-            <StyledBox><span>Learn</span><i className="fas fa-graduation-cap"/></StyledBox>
-            <StyledBox><span>Settings</span><i className="fas fa-cogs" /></StyledBox>
-            <StyledBox onClick={handleLogout}><span>Sign out</span><i className="fas fa-sign-out-alt"/></StyledBox>
-        </StyledGrid>
-        <Footer />
+            <StyledGrid>
+                <StyledBox><span>Mange</span><i className="fas fa-sitemap" /></StyledBox>
+                <StyledBox><span>Learn</span><i className="fas fa-graduation-cap"/></StyledBox>
+                <StyledBox><span>Settings</span><i className="fas fa-cogs" /></StyledBox>
+                <StyledBox onClick={handleLogout}><span>Sign out</span><i className="fas fa-sign-out-alt"/></StyledBox>
+            </StyledGrid>
+            <Footer />
         </>
     );
 }

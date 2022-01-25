@@ -42,6 +42,17 @@ export const TokenProvider = ({children} : {children: React.ReactNode}) => {
          },
        }).then(response => {
         if(response.status === 200) {
+          axios
+          .get("http://127.0.0.1:8000/api/get-user/", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }).then(res => {
+            if(res.status === 200) {
+              console.log(res);
+              console.log(response);
+            }
+          }).catch(e => console.log(e))
           authenticate(true);
         } else {
           authenticate(false)

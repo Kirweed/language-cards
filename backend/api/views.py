@@ -1,14 +1,25 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer
+from .serializers import UserRegisterSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer, UserSerializer
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
+
+
+class UserRegisterViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserRegisterSerializer
+    permission_classes = [AllowAny]
+    http_method_names = ['post']
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = User.objects.filter(username=self.request.user.username)
+        return queryset
 
 
 class UserInfoViewSet(viewsets.ModelViewSet):
