@@ -15,6 +15,13 @@ const StyledForm = styled.form`
   justify-content: center;
 `;
 
+const StyledError = styled.p`
+  color: red;
+  font-weight: ${({theme}) => theme.fontWeight.bold};
+  margin: 0;
+  padding: 0;
+`;
+
 const Form = () => {
   const auth = useAuth();
 
@@ -31,6 +38,7 @@ const Form = () => {
     <StyledForm onSubmit={(e) => handleLogin(e)}>
       <Input type="text" placeholder="username" name="username" />
       <Input type="password" placeholder="password" name="password" />
+      {auth.formError && <StyledError>Wrong credentials</StyledError>}
       <Button secondary type="submit">
         Sign Up!
       </Button>

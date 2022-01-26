@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import App from "./App";
 import { TokenProvider } from "./context";
+import { store } from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <TokenProvider>
-    <App />
-    </TokenProvider>
+    <Provider store={store}>
+      <TokenProvider>
+        <App />
+      </TokenProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

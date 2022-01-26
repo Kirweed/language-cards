@@ -12,9 +12,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      {auth.isAuthenticated ? <AuthNavigateTemplate /> : <UnAuthNavigateTemplate />}
+      {auth.isAuthenticated ? (
+        <AuthNavigateTemplate />
+      ) : (
+        <UnAuthNavigateTemplate />
+      )}
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default App;

@@ -21,26 +21,28 @@ const StyledButton = styled(Button)`
   right: 30px;
 `;
 
-const StyledWrapper = styled.div<{left?: boolean, right?: boolean}>`
+const StyledWrapper = styled.div<{ left?: boolean; right?: boolean }>`
   height: 60vh;
   border-left: 2px solid ${({ theme }) => theme.colors.darkRed};
 
   ${({ left }) =>
-    left ?
-    css`
-      width: 70%;
-      border: none;
-      border-right: 2px solid ${({ theme }) => theme.colors.darkRed};
-    ` : ''}
+    left
+      ? css`
+          width: 70%;
+          border: none;
+          border-right: 2px solid ${({ theme }) => theme.colors.darkRed};
+        `
+      : ""}
 
   ${({ right }) =>
-    right ?
-    css`
-      width: 30%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    ` : ''}
+    right
+      ? css`
+          width: 30%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        `
+      : ""}
 `;
 
 const HomePageTemplate = () => {
@@ -64,8 +66,8 @@ const HomePageTemplate = () => {
             voluptatibus quo ex modi reprehenderit recusandae suscipit officiis
             incidunt laboriosam maiores, culpa beatae neque animi, ipsam fuga
             odit, accusantium optio laudantium! Deserunt maxime aperiam,
-            inventore impedit dolore, dolorem explicabo laboriosam odit
-            exercitationem sapiente saepe eligendi quos voluptas, error ut
+            inventore impedit dolore, dolorem explicabo laboriosam
+            oditexercitationem sapiente saepe eligendi quos voluptas, error ut
             deleniti quas. Soluta officiis quis commodi dignissimos ducimus
             laudantium est. Exercitationem, non. Molestiae animi culpa, qui
             dicta totam, tenetur voluptatibus aliquid maxime facere delectus

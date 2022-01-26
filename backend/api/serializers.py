@@ -18,34 +18,32 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         fields = ['username', 'password', 'email']
 
 
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-
+class LanguageCardsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'password', 'email']
-
-
-
-class UserInfoSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=False)
-
-    class Meta:
-        model = UserInfo
-        fields = ['user', 'points']
+        model = LanguageCard
+        fields = ['native_word', 'learn_word']
 
 
 class CollectionsSerializer(serializers.ModelSerializer):
-    owner = UserInfoSerializer(many=False)
+    language_card = LanguageCardsSerializer(many=True)
 
     class Meta:
         model = Collection
-        fields = ['owner', 'native_language', 'learn_language', 'name']
+        fields = ['native_language', 'learn_language', 'name', 'language_card']
 
 
-class LanguageCardsSerializer(serializers.ModelSerializer):
-    collection = CollectionsSerializer(many=False)
+class UserInfoSerializer(serializers.ModelSerializer):
+    collection = CollectionsSerializer(many=True)  
 
     class Meta:
-        model = LanguageCard
-        fields = ['collection', 'native_word', 'learn_word']
+        model = UserInfo
+        fields = ['points', 'collection']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    user_info = UserInfoSerializer(many=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'user_info']
