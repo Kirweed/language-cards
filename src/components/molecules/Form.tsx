@@ -17,7 +17,7 @@ const StyledForm = styled.form`
 
 const StyledError = styled.p`
   color: red;
-  font-weight: ${({theme}) => theme.fontWeight.bold};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin: 0;
   padding: 0;
 `;
@@ -26,7 +26,6 @@ const Form = () => {
   const auth = useAuth();
 
   const handleLogin = (e: any) => {
-    
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
@@ -42,7 +41,8 @@ const Form = () => {
       <Button secondary type="submit">
         Sign Up!
       </Button>
-    </StyledForm>);
+    </StyledForm>
+  );
 };
 
 export default Form;

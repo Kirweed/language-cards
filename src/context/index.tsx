@@ -69,7 +69,9 @@ export const TokenProvider = ({ children }: { children: React.ReactNode }) => {
           setFormError(false);
         }
       })
-      .catch(() => setFormError(true));
+      .catch(() => {
+        setFormError(true);
+      });
   };
 
   const logOut = () => {

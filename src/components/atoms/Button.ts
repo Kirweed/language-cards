@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.button<{secondary?: boolean}>`
+const Button = styled.button<{ secondary?: boolean; big?: boolean }>`
   width: 200px;
   height: 130px;
   background-color: ${({ theme }) => theme.colors.darkRed};
@@ -10,6 +10,7 @@ const Button = styled.button<{secondary?: boolean}>`
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   transition: transform ease-in-out 0.4s;
+  z-index: 200;
 
   &:hover {
     cursor: pointer;
@@ -22,6 +23,13 @@ const Button = styled.button<{secondary?: boolean}>`
       width: 130px;
       height: 80px;
       background-color: ${({ theme }) => theme.colors.dark};
+    `}
+
+  ${({ big }) =>
+    big &&
+    css`
+      width: 200px;
+      height: 130px;
     `}
 `;
 
