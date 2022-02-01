@@ -23,7 +23,7 @@ export const TokenProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("ACCESS_TOKEN");
+    let token = localStorage.getItem("ACCESS_TOKEN");
     const refreshToken = localStorage.getItem("REFRESH_TOKEN");
 
     const getAccessTokenByRefreshToken = () => {
@@ -35,6 +35,7 @@ export const TokenProvider = ({ children }: { children: React.ReactNode }) => {
           .then((response) => {
             if (response.status === 200) {
               localStorage.setItem("ACCESS_TOKEN", response.data.access);
+              token = response.data.access;
               authenticate(true);
             } else {
               authenticate(false);
@@ -53,7 +54,7 @@ export const TokenProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       getAccessTokenByRefreshToken();
     }
-  }, []);
+  });
 
   const logIn = (username: string, password: string) => {
     axios

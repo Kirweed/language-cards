@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import Button from "../components/atoms/Button";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
@@ -68,6 +69,7 @@ const StyledP = styled.p`
 
 const ManageTemplate = () => {
   const navigate = useNavigate();
+  const reducer: any = useSelector<any>((state) => state.rootReducer);
 
   const navigateDashboard = () => {
     navigate("/dashboard");
@@ -78,39 +80,57 @@ const ManageTemplate = () => {
       <StyledWrapper>
         <Heading>Your Collections:</Heading>
         <StyledGrid>
-          <StyledBox>
-            <div>
-              <StyledTitle>Uczysz się:</StyledTitle>
-              <StyledTitle>English</StyledTitle>
-            </div>
+          {Object.keys(reducer).length ? (
+            reducer.collections.map((item: any) => (
+              <StyledBox key={item.name}>
+                <div>
+                  <StyledTitle>Uczysz się:</StyledTitle>
+                  <StyledTitle>{item.learn_language}</StyledTitle>
+                </div>
 
-            <div>
-              <StyledP>Animals</StyledP>
-              <StyledP>78 słówka</StyledP>
-            </div>
-          </StyledBox>
-          <StyledBox>
-            <div>
-              <StyledTitle>Uczysz się:</StyledTitle>
-              <StyledTitle>English</StyledTitle>
-            </div>
+                <div>
+                  <StyledP>{item.name}</StyledP>
+                  <StyledP>{item.language_card.length} słówka</StyledP>
+                </div>
+              </StyledBox>
+            ))
+          ) : (
+            <>
+              <StyledBox>
+                <div>
+                  <StyledTitle>Uczysz się:</StyledTitle>
+                  <StyledTitle>English</StyledTitle>
+                </div>
 
-            <div>
-              <StyledP>Character trails</StyledP>
-              <StyledP>17 słówka</StyledP>
-            </div>
-          </StyledBox>
-          <StyledBox>
-            <div>
-              <StyledTitle>Uczysz się:</StyledTitle>
-              <StyledTitle>Hiszpański</StyledTitle>
-            </div>
+                <div>
+                  <StyledP>Animals</StyledP>
+                  <StyledP>78 słówka</StyledP>
+                </div>
+              </StyledBox>
+              <StyledBox>
+                <div>
+                  <StyledTitle>Uczysz się:</StyledTitle>
+                  <StyledTitle>English</StyledTitle>
+                </div>
 
-            <div>
-              <StyledP>Zwierzęta</StyledP>
-              <StyledP>64 słówka</StyledP>
-            </div>
-          </StyledBox>
+                <div>
+                  <StyledP>Character trails</StyledP>
+                  <StyledP>17 słówka</StyledP>
+                </div>
+              </StyledBox>
+              <StyledBox>
+                <div>
+                  <StyledTitle>Uczysz się:</StyledTitle>
+                  <StyledTitle>Hiszpański</StyledTitle>
+                </div>
+
+                <div>
+                  <StyledP>Zwierzęta</StyledP>
+                  <StyledP>64 słówka</StyledP>
+                </div>
+              </StyledBox>
+            </>
+          )}
         </StyledGrid>
         <StyledButton secondary left big onClick={navigateDashboard}>
           Back to dashboard

@@ -8,7 +8,7 @@ const GET_INITIAL_DATA_SUCCESS = "GET_INITIAL_DATA_SUCCESS";
 
 const initialState = {};
 
-// actions
+/// actions
 
 export const getInitialData =
   (token: string, authenticate: any, getAccessTokenByRefreshToken: any) =>
