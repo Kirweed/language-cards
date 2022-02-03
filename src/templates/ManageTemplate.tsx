@@ -74,6 +74,10 @@ const ManageTemplate = () => {
   const navigateDashboard = () => {
     navigate("/dashboard");
   };
+
+  const redirectToCollection = (id: number) => {
+    navigate(`/manage/collection/${id}`);
+  };
   return (
     <>
       <Header />
@@ -82,7 +86,10 @@ const ManageTemplate = () => {
         <StyledGrid>
           {Object.keys(reducer).length ? (
             reducer.collections.map((item: any) => (
-              <StyledBox key={item.name}>
+              <StyledBox
+                key={item.name}
+                onClick={() => redirectToCollection(item.id)}
+              >
                 <div>
                   <StyledTitle>Uczysz się:</StyledTitle>
                   <StyledTitle>{item.learn_language}</StyledTitle>

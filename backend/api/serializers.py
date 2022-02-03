@@ -29,7 +29,7 @@ class CollectionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collection
-        fields = ['native_language', 'learn_language', 'name', 'language_card']
+        fields = ['id', 'native_language', 'learn_language', 'name', 'language_card']
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

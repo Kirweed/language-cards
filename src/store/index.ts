@@ -6,8 +6,6 @@ const GET_INITIAL_DATA_REQUEST = "GET_INITIAL_DATA_REQUEST";
 const GET_INITIAL_DATA_FAILURE = "GET_INITIAL_DATA_FAILURE";
 const GET_INITIAL_DATA_SUCCESS = "GET_INITIAL_DATA_SUCCESS";
 
-const initialState = {};
-
 /// actions
 
 export const getInitialData =
@@ -47,6 +45,32 @@ export const getInitialData =
       });
   };
 
+interface UserInterface {
+  username: string;
+  email: string;
+  points: number;
+}
+
+interface CardInterface {
+  native_word: string;
+  learn_word: string;
+}
+
+export interface CollectionInterface {
+  id: number | null;
+  native_language: string;
+  learn_languge: string;
+  name: string;
+  language_card?: CardInterface[];
+}
+
+interface RootReducerState {
+  user?: UserInterface;
+  collections?: CollectionInterface[];
+}
+
+const initialState: RootReducerState = {};
+
 // eslint-disable-next-line @typescript-eslint/default-param-last
 const rootReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -67,3 +91,5 @@ export const store = configureStore({
   },
   middleware: [reduxThunk]
 });
+
+export type RootState = ReturnType<typeof store.getState>;
