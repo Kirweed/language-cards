@@ -20,11 +20,12 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from api.views import UserRegisterViewSet, UserViewSet
+from api.views import UserRegisterViewSet, UserViewSet, CollectionsViewSet
 
 
 router = DefaultRouter()
 router.register(r'api/language-cards', UserViewSet, basename='get_user')
+router.register(r'api/collections', CollectionsViewSet, basename='collections')
 router.register(r'api/register', UserRegisterViewSet, basename='register')
 
 urlpatterns = [

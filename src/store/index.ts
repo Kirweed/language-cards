@@ -6,6 +6,9 @@ const GET_INITIAL_DATA_REQUEST = "GET_INITIAL_DATA_REQUEST";
 const GET_INITIAL_DATA_FAILURE = "GET_INITIAL_DATA_FAILURE";
 const GET_INITIAL_DATA_SUCCESS = "GET_INITIAL_DATA_SUCCESS";
 
+const UPDATE_COLLECTION_REQUEST = "UPDATE_COLLECTION_REQUEST";
+const UPDATE_COLLECTION_FAILURE = "UPDATE_COLLECTION_FAILURE";
+const UPDATE_COLLECTION_SUCCESS = "UPDATE_COLLECTION_SUCCESS";
 /// actions
 
 export const getInitialData =
@@ -45,6 +48,32 @@ export const getInitialData =
       });
   };
 
+interface EditCollectionInterface {
+  id: number;
+  learn_language: string;
+  name: string;
+}
+
+export const editCollection =
+  (payload: EditCollectionInterface, token: string | null) =>
+  (dispatch: any) => {
+    dispatch({ type: UPDATE_COLLECTION_REQUEST });
+    return axios
+      .get("http://127.0.0.1:8000/api/collections/", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        dispatch({ type: UPDATE_COLLECTION_SUCCESS });
+        console.log(response);
+        console.log(payload);
+      })
+      .catch(() => {
+        dispatch({ type: UPDATE_COLLECTION_FAILURE });
+      });
+  };
+
 interface UserInterface {
   username: string;
   email: string;
@@ -59,7 +88,7 @@ interface CardInterface {
 export interface CollectionInterface {
   id: number | null;
   native_language: string;
-  learn_languge: string;
+  learn_language: string;
   name: string;
   language_card?: CardInterface[];
 }
