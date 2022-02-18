@@ -129,7 +129,6 @@ const CollectionView = () => {
       );
       if (data) {
         setCollectionData(data);
-        console.log(data);
       }
     }
   }, [rootReducer]);
@@ -155,12 +154,14 @@ const CollectionView = () => {
         editCollection(
           {
             id: validId,
-            ...editData
+            editData
           },
           token
         )
       );
     }
+
+    setCollectionEdit(false);
   };
 
   return (

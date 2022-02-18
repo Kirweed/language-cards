@@ -48,10 +48,14 @@ export const getInitialData =
       });
   };
 
-interface EditCollectionInterface {
-  id: number;
+interface EditDataInterface {
   learn_language: string;
   name: string;
+}
+
+interface EditCollectionInterface {
+  id: number;
+  editData: EditDataInterface;
 }
 
 export const editCollection =
@@ -59,15 +63,26 @@ export const editCollection =
   (dispatch: any) => {
     dispatch({ type: UPDATE_COLLECTION_REQUEST });
     return axios
-      .get("http://127.0.0.1:8000/api/collections/", {
-        headers: {
-          Authorization: `Bearer ${token}`
+      .patch(
+        `http://127.0.0.1:8000/api/collection/${payload.id}/`,
+        payload.editData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      })
-      .then((response) => {
-        dispatch({ type: UPDATE_COLLECTION_SUCCESS });
-        console.log(response);
-        console.log(payload);
+      )
+      .then(({ data }) => {
+        dispatch({
+          type: UPDATE_COLLECTION_SUCCESS,
+          payload: {
+            id: data.id,
+            native_language: data.native_language,
+            learn_language: data.learn_language,
+            name: data.name,
+            language_card: data.language_card
+          }
+        });
       })
       .catch(() => {
         dispatch({ type: UPDATE_COLLECTION_FAILURE });
@@ -109,6 +124,21 @@ const rootReducer = (state = initialState, action: any) => {
         user: action.payload.user,
         collections: action.payload.collections
       };
+    case UPDATE_COLLECTION_SUCCESS:
+      return Array.isArray(state.collections)
+        ? {
+            ...state,
+            collections: [
+              ...state.collections.filter(
+                (item) => item.id !== action.payload.id
+              ),
+              action.payload
+            ]
+          }
+        : {
+            ...state,
+            collections: [action.payload]
+          };
     default:
       return state;
   }

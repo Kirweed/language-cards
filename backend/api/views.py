@@ -1,8 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserRegisterSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer, UserSerializer
+from .serializers import UserRegisterSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer, UserSerializer, CollectionManagingSerializer
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
+from django.db.models import Prefetch
 
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
@@ -38,3 +39,10 @@ class LanguageCardsViewSet(viewsets.ModelViewSet):
     queryset = LanguageCard.objects.all()
     serializer_class = LanguageCardsSerializer
     permission_classes = [IsAuthenticated]
+
+
+class CollectionManagingViewSet(viewsets.ModelViewSet):
+    queryset = Collection.objects.filter(owner__user__id=1)
+    serializer_class = CollectionManagingSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'patch']

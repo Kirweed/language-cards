@@ -47,3 +47,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password', 'email', 'user_info']
+
+
+class CollectionManagingSerializer(serializers.ModelSerializer):
+    language_card = LanguageCardsSerializer(many=True)
+
+    class Meta:
+        model = Collection
+        fields = ['id', 'native_language', 'learn_language', 'name', 'language_card', 'owner']
+        depth = 2
