@@ -45,4 +45,4 @@ class CollectionManagingViewSet(viewsets.ModelViewSet):
     queryset = Collection.objects.filter(owner__user__id=1)
     serializer_class = CollectionManagingSerializer
     permission_classes = [IsAuthenticated]
-    http_method_names = ['get', 'patch']
+    http_method_names = ['patch']

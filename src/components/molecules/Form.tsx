@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import { useAuth } from "../../context";
+import ErrorMessage from "../atoms/ErrorMessage";
 
 const StyledForm = styled.form`
   height: 80%;
@@ -13,13 +14,6 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const StyledError = styled.p`
-  color: red;
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  margin: 0;
-  padding: 0;
 `;
 
 const Form = () => {
@@ -37,7 +31,7 @@ const Form = () => {
     <StyledForm onSubmit={(e) => handleLogin(e)}>
       <Input type="text" placeholder="username" name="username" />
       <Input type="password" placeholder="password" name="password" />
-      {auth.formError && <StyledError>Wrong credentials</StyledError>}
+      {auth.formError && <ErrorMessage>Wrong credentials</ErrorMessage>}
       <Button secondary type="submit">
         Sign Up!
       </Button>

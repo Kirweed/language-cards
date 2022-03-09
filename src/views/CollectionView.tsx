@@ -8,6 +8,7 @@ import Header from "../components/molecules/Header";
 import { RootState, CollectionInterface, editCollection } from "../store";
 import Button from "../components/atoms/Button";
 import Input from "../components/atoms/Input";
+import ErrorMessage from "../components/atoms/ErrorMessage";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -110,6 +111,7 @@ const StyledInput = styled(Input)`
 const CollectionView = () => {
   const [isCollectionEdit, setCollectionEdit] = useState(false);
   const [editData, setEditData] = useState({ name: "", learn_language: "" });
+  const [errorMessages, setError] = useState<string[]>([]);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -147,21 +149,44 @@ const CollectionView = () => {
 
   const handleCollectionEdit = () => {
     const token = localStorage.getItem("ACCESS_TOKEN");
+    let validFlag = true;
+    const errorsTab = [];
     if (id) {
       const validId = parseInt(id, 10);
+      setError([]);
 
-      dispatch(
-        editCollection(
-          {
-            id: validId,
-            editData
-          },
-          token
-        )
-      );
+      if (editData.name.length > 50 || editData.name.length < 3) {
+        const error = "Name must have less than 51 chars and more then 2!";
+        errorsTab.push(error);
+        validFlag = false;
+      }
+
+      if (
+        editData.learn_language.length > 35 ||
+        editData.learn_language.length < 3
+      ) {
+        const error = "Language must have less than 36 chars and more then 2!";
+        errorsTab.push(error);
+        validFlag = false;
+      }
+
+      if (validFlag) {
+        setError([]);
+
+        dispatch(
+          editCollection(
+            {
+              id: validId,
+              editData
+            },
+            token
+          )
+        );
+        setCollectionEdit(false);
+      } else {
+        setError([...errorsTab]);
+      }
     }
-
-    setCollectionEdit(false);
   };
 
   return (
@@ -172,7 +197,10 @@ const CollectionView = () => {
           <>
             <StyledWrapper>
               <StyledEditButton
-                onClick={() => setCollectionEdit(!isCollectionEdit)}
+                onClick={() => {
+                  setCollectionEdit(!isCollectionEdit);
+                  setError([]);
+                }}
               >
                 {isCollectionEdit ? (
                   <>
@@ -217,9 +245,17 @@ const CollectionView = () => {
                 )}
               </StyledInlineBox>
               {isCollectionEdit && (
-                <StyledSubmitButton secondary onClick={handleCollectionEdit}>
-                  Save
-                </StyledSubmitButton>
+                <>
+                  <p>
+                    {errorMessages.length > 0 &&
+                      errorMessages.map((item) => (
+                        <ErrorMessage key={item}>{item}</ErrorMessage>
+                      ))}
+                  </p>
+                  <StyledSubmitButton secondary onClick={handleCollectionEdit}>
+                    Save
+                  </StyledSubmitButton>
+                </>
               )}
             </StyledWrapper>
             <StyledGrid>

@@ -55,4 +55,3 @@ class CollectionManagingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = ['id', 'native_language', 'learn_language', 'name', 'language_card', 'owner']
-        depth = 2
