@@ -21,7 +21,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class LanguageCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = LanguageCard
-        fields = ['native_word', 'learn_word']
+        fields = ['collection', 'native_word', 'learn_word']
 
 
 class CollectionsSerializer(serializers.ModelSerializer):

@@ -16,7 +16,7 @@ const StyledForm = styled.form`
   justify-content: center;
 `;
 
-const Form = () => {
+const SignInForm = () => {
   const auth = useAuth();
 
   const handleLogin = (e: any) => {
@@ -39,4 +39,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SignInForm;

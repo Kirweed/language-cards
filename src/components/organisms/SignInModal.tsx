@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import DarkOverlay from "../atoms/DarkOverlay";
-import Form from "../molecules/Form";
+import SignInForm from "../molecules/SignInForm";
 import Heading from "../atoms/Heading";
 
 const StyledFormWrapper = styled.div`
@@ -16,7 +16,7 @@ const StyledFormWrapper = styled.div`
   padding: 20px;
 `;
 
-const SignUpModal = ({
+const SignInModal = ({
   showed,
   handleModalFn
 }: {
@@ -28,13 +28,14 @@ const SignUpModal = ({
       <DarkOverlay onClick={handleModalFn} />
       <StyledFormWrapper>
         <Heading>Sign Up</Heading>
-        <Form />
+        <SignInForm />
       </StyledFormWrapper>
     </>
   ) : null;
-SignUpModal.propTypes = {
+
+SignInModal.propTypes = {
   showed: PropTypes.bool.isRequired,
   handleModalFn: PropTypes.func.isRequired
 };
 
-export default SignUpModal;
+export default SignInModal;

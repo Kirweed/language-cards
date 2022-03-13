@@ -37,13 +37,15 @@ export const getInitialData =
             }
           });
         } else {
+          console.log(response);
           authenticate(false);
           dispatch({ type: GET_INITIAL_DATA_FAILURE });
           getAccessTokenByRefreshToken();
         }
       })
-      .catch(() => {
+      .catch((e) => {
         dispatch({ type: GET_INITIAL_DATA_FAILURE });
+        console.log(e);
         getAccessTokenByRefreshToken();
       });
   };
@@ -105,7 +107,7 @@ export interface CollectionInterface {
   native_language: string;
   learn_language: string;
   name: string;
-  language_card?: CardInterface[];
+  language_card: CardInterface[];
 }
 
 interface RootReducerState {

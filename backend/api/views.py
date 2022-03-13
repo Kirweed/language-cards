@@ -42,7 +42,11 @@ class LanguageCardsViewSet(viewsets.ModelViewSet):
 
 
 class CollectionManagingViewSet(viewsets.ModelViewSet):
-    queryset = Collection.objects.filter(owner__user__id=1)
+    queryset = Collection.objects.all()
     serializer_class = CollectionManagingSerializer
     permission_classes = [IsAuthenticated]
     http_method_names = ['patch']
+
+    def get_queryset(self):
+        queryset = Collection.objects.filter(owner__user__id=self.request.user.id)
+        return queryset

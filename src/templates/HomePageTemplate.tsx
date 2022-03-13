@@ -4,7 +4,7 @@ import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import Paragraph from "../components/atoms/Paragraph";
 import Button from "../components/atoms/Button";
-import SignUpModal from "../components/organisms/SignUpModal";
+import SignInModal from "../components/organisms/SignInModal";
 
 const StyledMainWrapper = styled.div`
   width: 100%;
@@ -57,7 +57,7 @@ const HomePageTemplate = () => {
       <StyledButton secondary onClick={handleModal}>
         Sign in!
       </StyledButton>
-      <SignUpModal showed={isModalOpen} handleModalFn={handleModal} />
+      <SignInModal showed={isModalOpen} handleModalFn={handleModal} />
       <Header />
       <StyledMainWrapper>
         <StyledWrapper left>
