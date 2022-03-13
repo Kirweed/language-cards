@@ -10,6 +10,7 @@ import Button from "../components/atoms/Button";
 import Input from "../components/atoms/Input";
 import ErrorMessage from "../components/atoms/ErrorMessage";
 import LanguageCard from "../components/molecules/LanguageCard";
+import AddCardModal from "../components/organisms/AddCardModal";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -93,6 +94,7 @@ const StyledInput = styled(Input)`
 
 const CollectionView = () => {
   const [isCollectionEdit, setCollectionEdit] = useState(false);
+  const [isModalOpen, handleModal] = useState(false);
   const [editData, setEditData] = useState({ name: "", learn_language: "" });
   const [errorMessages, setError] = useState<string[]>([]);
   const { id } = useParams();
@@ -171,6 +173,8 @@ const CollectionView = () => {
       }
     }
   };
+
+  const handleModalFn = () => handleModal(!isModalOpen);
 
   return (
     <>
@@ -262,11 +266,12 @@ const CollectionView = () => {
         <br />
         <i className="fas fa-long-arrow-alt-left" />
       </StyledButton>
-      <StyledButton right>
+      <StyledButton right onClick={() => handleModal(!isModalOpen)}>
         Create new language card
         <br />
         <i className="fas fa-plus" />
       </StyledButton>
+      <AddCardModal showed={isModalOpen} handleModalFn={handleModalFn} />
       <Footer />
     </>
   );

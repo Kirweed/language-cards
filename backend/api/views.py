@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserRegisterSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer, UserSerializer, CollectionManagingSerializer
+from .serializers import UserRegisterSerializer, UserInfoSerializer, CollectionsSerializer, LanguageCardsSerializer, UserSerializer, CollectionManagingSerializer, LanguageCardsManagingSerializer
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
 from django.db.models import Prefetch
@@ -50,3 +50,9 @@ class CollectionManagingViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Collection.objects.filter(owner__user__id=self.request.user.id)
         return queryset
+
+
+class LanguageCardsManagingViewSet(viewsets.ModelViewSet):
+    queryset = LanguageCard.objects.all()
+    serializer_class = LanguageCardsManagingSerializer
+    permission_classes = [IsAuthenticated]

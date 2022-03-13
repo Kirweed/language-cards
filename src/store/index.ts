@@ -9,6 +9,11 @@ const GET_INITIAL_DATA_SUCCESS = "GET_INITIAL_DATA_SUCCESS";
 const UPDATE_COLLECTION_REQUEST = "UPDATE_COLLECTION_REQUEST";
 const UPDATE_COLLECTION_FAILURE = "UPDATE_COLLECTION_FAILURE";
 const UPDATE_COLLECTION_SUCCESS = "UPDATE_COLLECTION_SUCCESS";
+
+const ADD_CARD_REQUEST = "ADD_CARD_REQUEST";
+const ADD_CARD_FAILURE = "ADD_CARD_FAILURE";
+const ADD_CARD_SUCCESS = "ADD_CARD_SUCCESS";
+
 /// actions
 
 export const getInitialData =
@@ -37,15 +42,13 @@ export const getInitialData =
             }
           });
         } else {
-          console.log(response);
           authenticate(false);
           dispatch({ type: GET_INITIAL_DATA_FAILURE });
           getAccessTokenByRefreshToken();
         }
       })
-      .catch((e) => {
+      .catch(() => {
         dispatch({ type: GET_INITIAL_DATA_FAILURE });
-        console.log(e);
         getAccessTokenByRefreshToken();
       });
   };
@@ -59,6 +62,29 @@ interface EditCollectionInterface {
   id: number;
   editData: EditDataInterface;
 }
+
+interface CardManagingInterface {
+  native_word: string;
+  learn_word: string;
+  collection: number;
+}
+
+export const addLanguageCard =
+  (payload: CardManagingInterface, token: string | null) => (dispatch: any) => {
+    dispatch({ type: ADD_CARD_REQUEST });
+    return axios
+      .post("http://127.0.0.1:8000/api/edit_language_cards/", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(({ data }) => {
+        dispatch({ type: ADD_CARD_SUCCESS, payload: data });
+      })
+      .catch(() => {
+        dispatch({ type: ADD_CARD_FAILURE });
+      });
+  };
 
 export const editCollection =
   (payload: EditCollectionInterface, token: string | null) =>
@@ -140,6 +166,33 @@ const rootReducer = (state = initialState, action: any) => {
         : {
             ...state,
             collections: [action.payload]
+          };
+    case ADD_CARD_SUCCESS:
+      return Array.isArray(state.collections)
+        ? {
+            ...state,
+            collections: [
+              ...state.collections.filter(
+                (item) => item.id !== action.payload.collection
+              ),
+              {
+                ...state.collections.filter(
+                  (item) => item.id === action.payload.collection
+                )[0],
+                language_card: [
+                  ...state.collections.filter(
+                    (item) => item.id === action.payload.collection
+                  )[0].language_card,
+                  {
+                    native_word: action.payload.native_word,
+                    learn_word: action.payload.learn_word
+                  }
+                ]
+              }
+            ]
+          }
+        : {
+            ...state
           };
     default:
       return state;

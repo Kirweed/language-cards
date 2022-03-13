@@ -10,7 +10,7 @@ const Button = styled.button<{ secondary?: boolean; big?: boolean }>`
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   transition: transform ease-in-out 0.4s;
-  z-index: 200;
+  z-index: 100;
 
   &:hover {
     cursor: pointer;
