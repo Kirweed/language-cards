@@ -73,10 +73,10 @@ const StyledGrid = styled.div`
   margin: 10px auto 50px auto;
   width: 80%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 180px));
   justify-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 30px;
   padding: 25px;
 `;
 

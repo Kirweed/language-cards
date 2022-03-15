@@ -14,6 +14,10 @@ const ADD_CARD_REQUEST = "ADD_CARD_REQUEST";
 const ADD_CARD_FAILURE = "ADD_CARD_FAILURE";
 const ADD_CARD_SUCCESS = "ADD_CARD_SUCCESS";
 
+const DELETE_CARD_REQUEST = "DELETE_CARD_REQUEST";
+const DELETE_CARD_SUCCESS = "DELETE_CARD_SUCCESS";
+const DELETE_CARD_FAILURE = "DELETE_CARD_FAILURE";
+
 /// actions
 
 export const getInitialData =
@@ -68,6 +72,21 @@ interface CardManagingInterface {
   learn_word: string;
   collection: number;
 }
+
+export const deleteLanguageCard =
+  (id: number, token: string | null) => (dispatch: any) => {
+    dispatch({ type: DELETE_CARD_REQUEST });
+    return axios
+      .delete(`http://127.0.0.1:8000/api/edit_language_cards/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        dispatch({ type: DELETE_CARD_SUCCESS });
+      })
+      .catch(() => dispatch({ type: DELETE_CARD_FAILURE }));
+  };
 
 export const addLanguageCard =
   (payload: CardManagingInterface, token: string | null) => (dispatch: any) => {
@@ -126,6 +145,7 @@ interface UserInterface {
 interface CardInterface {
   native_word: string;
   learn_word: string;
+  id: number;
 }
 
 export interface CollectionInterface {

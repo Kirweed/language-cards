@@ -56,3 +56,4 @@ class LanguageCardsManagingViewSet(viewsets.ModelViewSet):
     queryset = LanguageCard.objects.all()
     serializer_class = LanguageCardsManagingSerializer
     permission_classes = [IsAuthenticated]
+    http_method_names = ['patch', 'delete', 'post']
