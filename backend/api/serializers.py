@@ -60,4 +60,4 @@ class CollectionManagingSerializer(serializers.ModelSerializer):
 class LanguageCardsManagingSerializer(serializers.ModelSerializer):
     class Meta:
         model = LanguageCard
-        fields = ['collection', 'native_word', 'learn_word']
+        fields = ['id', 'collection', 'native_word', 'learn_word']

@@ -18,7 +18,13 @@ const StyledForm = styled.form`
   justify-content: center;
 `;
 
-const AddCardForm = () => {
+const StyledButtons = styled.div`
+  margin-top: 30px;
+  display: flex;
+  gap: 30px;
+`;
+
+const AddCardForm = ({ handleModalFn }: { handleModalFn: any }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState<string[]>([]);
   const { id } = useParams();
@@ -57,23 +63,30 @@ const AddCardForm = () => {
           )
         );
       }
+
+      if (e.nativeEvent.submitter.name === "submitBttn") {
+        handleModalFn(false);
+      } else {
+        e.target.reset();
+        handleModalFn(true);
+      }
     }
   };
 
   return (
     <StyledForm onSubmit={(e) => addCard(e)}>
       <Input type="text" placeholder="native word" name="native_word" />
-      <Input type="password" placeholder="learn word" name="learn_word" />
+      <Input type="text" placeholder="learn word" name="learn_word" />
       {errors.length !== 0 &&
         errors.map((item) => <ErrorMessage>{item}</ErrorMessage>)}
-      <div>
-        <Button secondary type="submit">
-          Add Card and finish
+      <StyledButtons>
+        <Button small type="submit" name="submitBttn">
+          Add card and finish
         </Button>
-        <Button secondary type="submit">
-          Add Card next card
+        <Button small type="submit" name="nextBttn">
+          Add next card
         </Button>
-      </div>
+      </StyledButtons>
     </StyledForm>
   );
 };

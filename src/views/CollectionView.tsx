@@ -174,7 +174,7 @@ const CollectionView = () => {
     }
   };
 
-  const handleModalFn = () => handleModal(!isModalOpen);
+  const handleModalFn = (bool: boolean) => handleModal(bool);
 
   return (
     <>

@@ -5,15 +5,16 @@ import Heading from "../atoms/Heading";
 import AddCardForm from "../molecules/AddCardForm";
 
 const StyledFormWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 102;
-  top: 0;
   height: 70vh;
-  width: 60%;
+  width: 45%;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
   background-color: white;
-  transform: translateX(25%) translateY(25%);
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px;
 `;
 
 const AddCardModal = ({
@@ -25,10 +26,10 @@ const AddCardModal = ({
 }) =>
   showed ? (
     <>
-      <DarkOverlay onClick={handleModalFn} />
+      <DarkOverlay onClick={() => handleModalFn(false)} />
       <StyledFormWrapper>
         <Heading>Add new card to this collection</Heading>
-        <AddCardForm />
+        <AddCardForm handleModalFn={handleModalFn} />
       </StyledFormWrapper>
     </>
   ) : null;

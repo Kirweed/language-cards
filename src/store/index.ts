@@ -74,7 +74,8 @@ interface CardManagingInterface {
 }
 
 export const deleteLanguageCard =
-  (id: number, token: string | null) => (dispatch: any) => {
+  (id: number, token: string | null, collectionId: number) =>
+  (dispatch: any) => {
     dispatch({ type: DELETE_CARD_REQUEST });
     return axios
       .delete(`http://127.0.0.1:8000/api/edit_language_cards/${id}/`, {
@@ -83,7 +84,7 @@ export const deleteLanguageCard =
         }
       })
       .then(() => {
-        dispatch({ type: DELETE_CARD_SUCCESS });
+        dispatch({ type: DELETE_CARD_SUCCESS, payload: { collectionId, id } });
       })
       .catch(() => dispatch({ type: DELETE_CARD_FAILURE }));
   };
@@ -204,9 +205,37 @@ const rootReducer = (state = initialState, action: any) => {
                     (item) => item.id === action.payload.collection
                   )[0].language_card,
                   {
+                    id: action.payload.id,
                     native_word: action.payload.native_word,
                     learn_word: action.payload.learn_word
                   }
+                ]
+              }
+            ]
+          }
+        : {
+            ...state
+          };
+    case DELETE_CARD_SUCCESS:
+      return Array.isArray(state.collections)
+        ? {
+            ...state,
+            collections: [
+              ...state.collections.filter(
+                (item) => item.id !== action.payload.collectionId
+              ),
+              {
+                ...state.collections.filter(
+                  (item) => item.id === action.payload.collectionId
+                )[0],
+                language_card: [
+                  ...state.collections
+                    .filter(
+                      (item) => item.id === action.payload.collectionId
+                    )[0]
+                    .language_card.filter(
+                      (card) => card.id !== action.payload.id
+                    )
                 ]
               }
             ]

@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.button<{ secondary?: boolean; big?: boolean }>`
+const Button = styled.button<{
+  secondary?: boolean;
+  big?: boolean;
+  small?: boolean;
+}>`
   width: 200px;
   height: 130px;
   background-color: ${({ theme }) => theme.colors.darkRed};
@@ -30,6 +34,14 @@ const Button = styled.button<{ secondary?: boolean; big?: boolean }>`
     css`
       width: 200px;
       height: 130px;
+    `}
+
+    ${({ small }) =>
+    small &&
+    css`
+      width: fit-content;
+      height: 60px;
+      padding: 10px;
     `}
 `;
 

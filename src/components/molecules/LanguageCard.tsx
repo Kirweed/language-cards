@@ -48,7 +48,7 @@ const LanguageCard = ({
     <>
       <ConfirmationModal
         showed={isModalShowed}
-        unShowModalFn={showConfirmationModal}
+        ShowModalFn={showConfirmationModal}
         cardId={id}
       />
       <StyledLanguageCard>
