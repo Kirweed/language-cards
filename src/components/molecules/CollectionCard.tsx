@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -30,25 +31,34 @@ const StyledP = styled.p`
 `;
 
 const CollectionCard = ({
+  id,
   name,
   learn_language,
   language_card
 }: {
+  id: number;
   name: string;
   learn_language: string;
   language_card: any;
-}) => (
-  <StyledWrapper key={name}>
-    <div>
-      <StyledTitle>Uczysz się:</StyledTitle>
-      <StyledTitle>{learn_language}</StyledTitle>
-    </div>
+}) => {
+  const navigate = useNavigate();
+  const redirectToCollectionLearn = (colId: number) => {
+    navigate(`/learn/${colId}`);
+  };
 
-    <div>
-      <StyledP>{name}</StyledP>
-      <StyledP>{language_card.length} słówka</StyledP>
-    </div>
-  </StyledWrapper>
-);
+  return (
+    <StyledWrapper key={name} onClick={() => redirectToCollectionLearn(id)}>
+      <div>
+        <StyledTitle>Uczysz się:</StyledTitle>
+        <StyledTitle>{learn_language}</StyledTitle>
+      </div>
+
+      <div>
+        <StyledP>{name}</StyledP>
+        <StyledP>{language_card.length} słówka</StyledP>
+      </div>
+    </StyledWrapper>
+  );
+};
 
 export default CollectionCard;

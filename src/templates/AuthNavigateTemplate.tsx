@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import DashboardTemplate from "./DashboardTemplate";
 import ManageTemplate from "./ManageTemplate";
 import CollectionView from "../views/CollectionView";
+import LearnChooseView from "../views/LearnChooseView";
 import LearnView from "../views/LearnView";
 
 const AuthNavigateTemplate = () => (
@@ -12,7 +13,8 @@ const AuthNavigateTemplate = () => (
       <Route path="/dashboard" element={<DashboardTemplate />} />
       <Route path="/manage" element={<ManageTemplate />} />
       <Route path="/manage/collection/:id" element={<CollectionView />} />
-      <Route path="/learn" element={<LearnView />} />
+      <Route path="/learn" element={<LearnChooseView />} />
+      <Route path="/learn/:id" element={<LearnView />} />
     </Routes>
   </BrowserRouter>
 );
