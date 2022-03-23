@@ -67,10 +67,12 @@ const DashboardTemplate = () => {
             <i className="fas fa-sitemap" />
           </StyledBox>
         </StyledLink>
-        <StyledBox>
-          <span>Learn</span>
-          <i className="fas fa-graduation-cap" />
-        </StyledBox>
+        <StyledLink to="/learn">
+          <StyledBox>
+            <span>Learn</span>
+            <i className="fas fa-graduation-cap" />
+          </StyledBox>
+        </StyledLink>
         <StyledBox>
           <span>Settings</span>
           <i className="fas fa-cogs" />
