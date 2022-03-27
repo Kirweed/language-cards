@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import Button from "../components/atoms/Button";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import Heading from "../components/atoms/Heading";
+import AddCollectionModal from "../components/organisms/AddCollectionModal";
 
 const StyledGrid = styled.div`
   margin: 10px auto 50px auto;
@@ -70,6 +71,7 @@ const StyledP = styled.p`
 const ManageTemplate = () => {
   const navigate = useNavigate();
   const reducer: any = useSelector<any>((state) => state.rootReducer);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const navigateDashboard = () => {
     navigate("/dashboard");
@@ -81,6 +83,7 @@ const ManageTemplate = () => {
   return (
     <>
       <Header />
+      <AddCollectionModal showed={isModalOpen} handleModalFn={setModalOpen} />
       <StyledWrapper>
         <Heading>Your Collections:</Heading>
         <StyledGrid>
@@ -144,7 +147,7 @@ const ManageTemplate = () => {
           <br />
           <i className="fas fa-long-arrow-alt-left" />
         </StyledButton>
-        <StyledButton right>
+        <StyledButton right onClick={() => setModalOpen(true)}>
           Create new Collection
           <br />
           <i className="fas fa-plus" />

@@ -4,6 +4,7 @@ from .serializers import UserRegisterSerializer, UserInfoSerializer, Collections
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
 from django.db.models import Prefetch
+from rest_framework.response import Response
 
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
@@ -45,11 +46,23 @@ class CollectionManagingViewSet(viewsets.ModelViewSet):
     queryset = Collection.objects.all()
     serializer_class = CollectionManagingSerializer
     permission_classes = [IsAuthenticated]
-    http_method_names = ['patch']
+    http_method_names = ['patch', 'post']
 
     def get_queryset(self):
         queryset = Collection.objects.filter(owner__user__id=self.request.user.id)
         return queryset
+
+    def create(self, request): 
+        post_data = request.data
+        user = UserInfo.objects.filter(user__id=request.user.id)[0]
+        response = Collection.objects.create(owner=user, native_language=post_data['native_language'], learn_language=post_data['learn_language'], name=post_data['name'])
+        responseText = {
+            'id': response.id,
+            'name': response.name,
+            'learn_language': response.learn_language,
+            'native_language': response.native_language,
+        }
+        return Response(responseText)
 
 
 class LanguageCardsManagingViewSet(viewsets.ModelViewSet):
