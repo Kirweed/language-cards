@@ -49,7 +49,8 @@ const LanguageCard = ({
       <ConfirmationModal
         showed={isModalShowed}
         ShowModalFn={showConfirmationModal}
-        cardId={id}
+        itemId={id}
+        collection={false}
       />
       <StyledLanguageCard>
         <StyledBin onClick={() => showConfirmationModal(true)}>

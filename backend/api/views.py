@@ -46,7 +46,7 @@ class CollectionManagingViewSet(viewsets.ModelViewSet):
     queryset = Collection.objects.all()
     serializer_class = CollectionManagingSerializer
     permission_classes = [IsAuthenticated]
-    http_method_names = ['patch', 'post']
+    http_method_names = ['patch', 'post', 'delete']
 
     def get_queryset(self):
         queryset = Collection.objects.filter(owner__user__id=self.request.user.id)

@@ -14,6 +14,10 @@ const ADD_COLLECTION_REQUEST = "ADD_COLLECTION_REQUEST";
 const ADD_COLLECTION_FAILURE = "ADD_COLLECTION_FAILURE";
 const ADD_COLLECTION_SUCCESS = "ADD_COLLECTION_SUCCESS";
 
+const DELETE_COLLECTION_REQUEST = "DELETE_COLLECTION_REQUEST";
+const DELETE_COLLECTION_SUCCESS = "DELETE_COLLECTION_SUCCESS";
+const DELETE_COLLECTION_FAILURE = "DELETE_COLLECTION_FAILURE";
+
 const ADD_CARD_REQUEST = "ADD_CARD_REQUEST";
 const ADD_CARD_FAILURE = "ADD_CARD_FAILURE";
 const ADD_CARD_SUCCESS = "ADD_CARD_SUCCESS";
@@ -102,6 +106,26 @@ export const addCollectionAction =
       })
       .catch(() => {
         dispatch({ type: ADD_COLLECTION_FAILURE });
+      });
+  };
+
+export const deleteCollectionAction =
+  (id: number, token: string | null) => (dispatch: any) => {
+    dispatch({ type: DELETE_COLLECTION_REQUEST });
+    return axios
+      .delete(`http://127.0.0.1:8000/api/collection/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        dispatch({
+          type: DELETE_COLLECTION_SUCCESS,
+          payload: id
+        });
+      })
+      .catch(() => {
+        dispatch({ type: DELETE_COLLECTION_FAILURE });
       });
   };
 
@@ -229,6 +253,17 @@ const rootReducer = (state = initialState, action: any) => {
         : {
             ...state,
             collections: [action.payload]
+          };
+    case DELETE_COLLECTION_SUCCESS:
+      return Array.isArray(state.collections)
+        ? {
+            ...state,
+            collections: state.collections.filter(
+              (item) => item.id !== action.payload
+            )
+          }
+        : {
+            ...state
           };
     case ADD_CARD_SUCCESS:
       return Array.isArray(state.collections)

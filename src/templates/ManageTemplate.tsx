@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/atoms/Button";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import Heading from "../components/atoms/Heading";
 import AddCollectionModal from "../components/organisms/AddCollectionModal";
+import ConfirmationModal from "../components/organisms/ConfirmationModal";
 
 const StyledGrid = styled.div`
   margin: 10px auto 50px auto;
@@ -20,6 +23,7 @@ const StyledGrid = styled.div`
 `;
 
 const StyledBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,6 +67,18 @@ const StyledTitle = styled.h2`
   text-align: center;
 `;
 
+const StyledIconWrapper = styled.div`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: #990308;
+  }
+`;
+
 const StyledP = styled.p`
   margin: 5px;
   text-align: center;
@@ -72,6 +88,10 @@ const ManageTemplate = () => {
   const navigate = useNavigate();
   const reducer: any = useSelector<any>((state) => state.rootReducer);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalShowed, showConfirmationModal] = useState(false);
+  const [collectionToDelete, setCollectionToDelete] = useState<null | number>(
+    null
+  );
 
   const navigateDashboard = () => {
     navigate("/dashboard");
@@ -84,6 +104,12 @@ const ManageTemplate = () => {
     <>
       <Header />
       <AddCollectionModal showed={isModalOpen} handleModalFn={setModalOpen} />
+      <ConfirmationModal
+        showed={isModalShowed}
+        ShowModalFn={showConfirmationModal}
+        itemId={collectionToDelete}
+        collection
+      />
       <StyledWrapper>
         <Heading>Your Collections:</Heading>
         <StyledGrid>
@@ -93,6 +119,15 @@ const ManageTemplate = () => {
                 key={item.name}
                 onClick={() => redirectToCollection(item.id)}
               >
+                <StyledIconWrapper
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showConfirmationModal(true);
+                    setCollectionToDelete(item.id);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </StyledIconWrapper>
                 <div>
                   <StyledTitle>Uczysz się:</StyledTitle>
                   <StyledTitle>{item.learn_language}</StyledTitle>

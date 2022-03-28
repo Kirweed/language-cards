@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { deleteLanguageCard } from "../../store";
+import { deleteCollectionAction, deleteLanguageCard } from "../../store";
 import Button from "../atoms/Button";
 import DarkOverlay from "../atoms/DarkOverlay";
 
@@ -28,32 +28,41 @@ const StyledButtons = styled.div`
 const ConfirmationModal = ({
   showed,
   ShowModalFn,
-  cardId
+  itemId,
+  collection
 }: {
   showed: boolean;
   ShowModalFn: any;
-  cardId: number;
+  itemId: number | null;
+  collection: boolean;
 }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const removeCard = () => {
-    if (id) {
-      console.log(cardId);
-      const collectionId = parseInt(id, 10);
+  const removeItem = () => {
+    if (itemId) {
       const token = localStorage.getItem("ACCESS_TOKEN");
-      dispatch(deleteLanguageCard(cardId, token, collectionId));
-      ShowModalFn(false);
+      if (collection) {
+        dispatch(deleteCollectionAction(itemId, token));
+      } else if (id) {
+        const collectionId = parseInt(id, 10);
+        dispatch(deleteLanguageCard(itemId, token, collectionId));
+      }
     }
+    ShowModalFn(false);
   };
 
   return showed ? (
     <>
       <DarkOverlay onClick={() => ShowModalFn(false)} />
       <StyledAlert>
-        <h2>Are you sure, that you want to delete this card?</h2>
+        {collection ? (
+          <h2>Are you sure, that you want to delete this collection?</h2>
+        ) : (
+          <h2>Are you sure, that you want to delete this card?</h2>
+        )}
         <StyledButtons>
-          <Button secondary onClick={removeCard}>
+          <Button secondary onClick={removeItem}>
             Yes
           </Button>
           <Button secondary onClick={() => ShowModalFn(false)}>
