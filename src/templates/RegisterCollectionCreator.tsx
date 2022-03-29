@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Button from "../components/atoms/Button";
@@ -8,12 +8,21 @@ import Input from "../components/atoms/Input";
 const StyledForm = styled.form`
   height: 80%;
   width: 100%;
+  padding-top: 10vh;
   gap: 5vh;
-  margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 50px;
+
+  button {
+    min-width: 100px;
+  }
 `;
 
 const RegisterCollectionCreator = ({
@@ -29,6 +38,12 @@ const RegisterCollectionCreator = ({
   const [nativeLanguage, setNativeLanguage] = useState("");
   const [learnLanguage, setLearnLanguage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setName(beforeData.collectionName);
+    setNativeLanguage(beforeData.nativeLanguage);
+    setLearnLanguage(beforeData.learnLanguage);
+  }, []);
 
   const cancel = () => {
     navigate("/");
@@ -68,13 +83,15 @@ const RegisterCollectionCreator = ({
         value={learnLanguage}
         onChange={(e) => setLearnLanguage(e.target.value)}
       />
-      <Button small onClick={goNext}>
-        Add collection
-      </Button>
+      <StyledButtonsWrapper>
+        <Button type="button" small onClick={goNext}>
+          Next
+        </Button>
 
-      <Button small onClick={cancel}>
-        Add collection
-      </Button>
+        <Button type="button" small secondary onClick={cancel}>
+          Cancel
+        </Button>
+      </StyledButtonsWrapper>
     </StyledForm>
   );
 };

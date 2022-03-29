@@ -36,15 +36,23 @@ const StyledBin = styled.div`
 const LanguageCard = ({
   native_word,
   learn_word,
-  id
+  id,
+  simple
 }: {
   native_word: string;
   learn_word: string;
   id: number;
+  // eslint-disable-next-line react/require-default-props
+  simple?: boolean;
 }) => {
   const [isModalShowed, showConfirmationModal] = useState(false);
 
-  return (
+  return simple ? (
+    <StyledLanguageCard>
+      <h2>{native_word}</h2>
+      <h4>{learn_word}</h4>
+    </StyledLanguageCard>
+  ) : (
     <>
       <ConfirmationModal
         showed={isModalShowed}

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const StyledWrapper = styled.div`
   width: 80%;
-  margin: 150px auto 10px auto;
+  margin: 12vh auto 0 auto;
   position: relative;
 `;
 
@@ -46,6 +46,7 @@ const StyledCircle = styled.div<{ progress?: boolean }>`
     progress &&
     css`
       background-color: #32c92c;
+      color: #fff;
     `};
 `;
 
@@ -54,23 +55,35 @@ const StyledCircleWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   top: -25px;
-  gap: 28%;
+  gap: 27%;
   right: -10px;
   z-index: 101;
   width: 100%;
 `;
 
-const ProgressBar = () => (
+const ProgressBar = ({ stage }: { stage: number }) => (
   <StyledWrapper>
     <StyledLineWrapper>
-      <StyledLine progress />
-      <StyledLine />
-      <StyledLine />
+      {stage >= 1 ? <StyledLine progress /> : <StyledLine />}
+      {stage >= 2 ? <StyledLine progress /> : <StyledLine />}
+      {stage >= 3 ? <StyledLine progress /> : <StyledLine />}
     </StyledLineWrapper>
     <StyledCircleWrapper>
-      <StyledCircle progress>1</StyledCircle>
-      <StyledCircle>2</StyledCircle>
-      <StyledCircle>3</StyledCircle>
+      {stage >= 2 ? (
+        <StyledCircle progress>1</StyledCircle>
+      ) : (
+        <StyledCircle>1</StyledCircle>
+      )}
+      {stage >= 3 ? (
+        <StyledCircle progress>2</StyledCircle>
+      ) : (
+        <StyledCircle>2</StyledCircle>
+      )}
+      {stage >= 4 ? (
+        <StyledCircle progress>3</StyledCircle>
+      ) : (
+        <StyledCircle>3</StyledCircle>
+      )}
     </StyledCircleWrapper>
   </StyledWrapper>
 );

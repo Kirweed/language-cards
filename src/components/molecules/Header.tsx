@@ -10,7 +10,7 @@ const StyledHeading = styled(Heading)`
   left: 0;
   right: 0;
   margin: 0;
-  height: 15vh;
+  height: 10vh;
   width: 100%;
   display: flex;
   align-items: center;
