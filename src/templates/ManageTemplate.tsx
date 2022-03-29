@@ -104,15 +104,15 @@ const ManageTemplate = () => {
     <>
       <Header />
       <AddCollectionModal showed={isModalOpen} handleModalFn={setModalOpen} />
-      <ConfirmationModal
-        showed={isModalShowed}
-        ShowModalFn={showConfirmationModal}
-        itemId={collectionToDelete}
-        collection
-      />
       <StyledWrapper>
         <Heading>Your Collections:</Heading>
         <StyledGrid>
+          <ConfirmationModal
+            showed={isModalShowed}
+            ShowModalFn={showConfirmationModal}
+            itemId={collectionToDelete}
+            collection
+          />
           {Object.keys(reducer).length ? (
             reducer.collections.map((item: any) => (
               <StyledBox

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import { useNavigate } from "react-router";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import Paragraph from "../components/atoms/Paragraph";
@@ -47,9 +48,14 @@ const StyledWrapper = styled.div<{ left?: boolean; right?: boolean }>`
 
 const HomePageTemplate = () => {
   const [isModalOpen, changeModalStatus] = useState(false);
+  const navigate = useNavigate();
 
   const handleModal = () => {
     changeModalStatus((prevState) => !prevState);
+  };
+
+  const navigateRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -77,7 +83,7 @@ const HomePageTemplate = () => {
           </Paragraph>
         </StyledWrapper>
         <StyledWrapper right>
-          <Button>Try for free!</Button>
+          <Button onClick={navigateRegister}>Try for free!</Button>
         </StyledWrapper>
       </StyledMainWrapper>
       <Footer />
