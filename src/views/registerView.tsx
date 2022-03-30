@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import ProgressBar from "../components/molecules/ProgressBar";
+import { registerUser } from "../store";
 import RegisterCardsCreator from "../templates/RegisterCardsCreator";
 import RegisterCollectionCreator from "../templates/RegisterCollectionCreator";
 import RegisterMainCreator from "../templates/RegisterMainForm";
-
-interface CardInterface {
-  nativeWord: string;
-  learnWord: string;
-}
-
-export interface DataToRegister {
-  username: string;
-  password: string;
-  password2: string;
-  collectionName: string;
-  nativeLanguage: string;
-  learnLanguage: string;
-  languageCards?: CardInterface[];
-}
+import { DataToRegister } from "../types";
 
 const RegisterView = () => {
   const [dataToRegister, setDataToRegister] = useState<DataToRegister>({
@@ -32,10 +20,12 @@ const RegisterView = () => {
     languageCards: []
   });
   const [stage, setStage] = useState(1);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (stage >= 4) {
       console.log(dataToRegister);
+      dispatch(registerUser(dataToRegister));
     }
   }, [stage]);
 

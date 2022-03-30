@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import Header from "../components/molecules/Header";
 import Heading from "../components/atoms/Heading";
 import AddCollectionModal from "../components/organisms/AddCollectionModal";
 import ConfirmationModal from "../components/organisms/ConfirmationModal";
+import BackButton from "../components/atoms/BackButton";
 
 const StyledGrid = styled.div`
   margin: 10px auto 50px auto;
@@ -45,21 +46,10 @@ const StyledWrapper = styled.div`
     margin-top 120px;
 `;
 
-const StyledButton = styled(Button)<{ right?: boolean; left?: boolean }>`
+const StyledButton = styled(Button)`
   position: fixed;
   top: 30px;
-
-  ${({ right }) =>
-    right &&
-    css`
-      right: 30px;
-    `};
-
-  ${({ left }) =>
-    left &&
-    css`
-      left: 30px;
-    `}
+  right: 30px;
 `;
 
 const StyledTitle = styled.h2`
@@ -177,12 +167,12 @@ const ManageTemplate = () => {
             </>
           )}
         </StyledGrid>
-        <StyledButton secondary left big onClick={navigateDashboard}>
+        <BackButton secondary big onClick={navigateDashboard}>
           Back to dashboard
           <br />
           <i className="fas fa-long-arrow-alt-left" />
-        </StyledButton>
-        <StyledButton right onClick={() => setModalOpen(true)}>
+        </BackButton>
+        <StyledButton top onClick={() => setModalOpen(true)}>
           Create new Collection
           <br />
           <i className="fas fa-plus" />

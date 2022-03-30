@@ -3,20 +3,20 @@ import styled, { css } from "styled-components";
 
 const StyledWrapper = styled.div`
   width: 80%;
-  margin: 12vh auto 0 auto;
+  margin: 16vh auto 0 auto;
   position: relative;
 `;
 
 const StyledLineWrapper = styled.div`
   position: absolute;
   display: flex;
-  z-index: 100;
+  z-index: ${({ theme }) => theme.zIndex.superBottom};
   width: 100%;
   height: 10px;
 `;
 
 const StyledLine = styled.div<{ progress?: boolean }>`
-  z-index: 100;
+  z-index: 98;
   background-color: white;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
@@ -57,7 +57,7 @@ const StyledCircleWrapper = styled.div`
   top: -25px;
   gap: 27%;
   right: -10px;
-  z-index: 101;
+  z-index: ${({ theme }) => theme.zIndex.bottom};
   width: 100%;
 `;
 

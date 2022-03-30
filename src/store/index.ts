@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import reduxThunk from "redux-thunk";
 import axios from "axios";
+import { DataToRegister } from "../types";
 
 const GET_INITIAL_DATA_REQUEST = "GET_INITIAL_DATA_REQUEST";
 const GET_INITIAL_DATA_FAILURE = "GET_INITIAL_DATA_FAILURE";
@@ -25,6 +26,10 @@ const ADD_CARD_SUCCESS = "ADD_CARD_SUCCESS";
 const DELETE_CARD_REQUEST = "DELETE_CARD_REQUEST";
 const DELETE_CARD_SUCCESS = "DELETE_CARD_SUCCESS";
 const DELETE_CARD_FAILURE = "DELETE_CARD_FAILURE";
+
+const REGISTER_USER_REQUEST = "REGISTER_USER_REQUEST";
+const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
+const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
 
 /// actions
 
@@ -87,6 +92,15 @@ interface AddCollectionInterface {
   learn_language: string;
   name: string;
 }
+
+export const registerUser =
+  (dataToregister: DataToRegister) => (dispatch: any) => {
+    dispatch({ type: REGISTER_USER_REQUEST });
+    return axios
+      .post("http://localhost:8000/api/register/", dataToregister)
+      .then(() => dispatch({ type: REGISTER_USER_SUCCESS }))
+      .catch(() => dispatch({ type: REGISTER_USER_FAILURE }));
+  };
 
 export const addCollectionAction =
   (dataToSend: AddCollectionInterface, token: string | null) =>

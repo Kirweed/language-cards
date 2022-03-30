@@ -13,6 +13,12 @@ class UserRegisterViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     http_method_names = ['post']
 
+    def create(self, request):
+        post_data = request.data
+        user = User.objects.create_user(
+            password=post_data["password"], username=post_data["username"])
+        return Response('User has been sucesfully created')
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -49,13 +55,15 @@ class CollectionManagingViewSet(viewsets.ModelViewSet):
     http_method_names = ['patch', 'post', 'delete']
 
     def get_queryset(self):
-        queryset = Collection.objects.filter(owner__user__id=self.request.user.id)
+        queryset = Collection.objects.filter(
+            owner__user__id=self.request.user.id)
         return queryset
 
-    def create(self, request): 
+    def create(self, request):
         post_data = request.data
         user = UserInfo.objects.filter(user__id=request.user.id)[0]
-        response = Collection.objects.create(owner=user, native_language=post_data['native_language'], learn_language=post_data['learn_language'], name=post_data['name'])
+        response = Collection.objects.create(
+            owner=user, native_language=post_data['native_language'], learn_language=post_data['learn_language'], name=post_data['name'])
         responseText = {
             'id': response.id,
             'name': response.name,

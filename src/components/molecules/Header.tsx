@@ -5,7 +5,7 @@ import Heading from "../atoms/Heading";
 const StyledHeading = styled(Heading)`
   color: ${({ theme }) => theme.colors.darkRed};
   position: fixed;
-  z-index: 90;
+  z-index: ${({ theme }) => theme.zIndex.middleBottom};
   top: 0;
   left: 0;
   right: 0;
@@ -16,6 +16,7 @@ const StyledHeading = styled(Heading)`
   align-items: center;
   justify-content: center;
   background-color: #eae7dc;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.darkRed};
 `;
 
 const Header = () => <StyledHeading>Language-cards.pl</StyledHeading>;

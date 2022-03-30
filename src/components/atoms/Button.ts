@@ -4,6 +4,7 @@ const Button = styled.button<{
   secondary?: boolean;
   big?: boolean;
   small?: boolean;
+  top?: boolean;
 }>`
   width: 200px;
   height: 130px;
@@ -14,7 +15,6 @@ const Button = styled.button<{
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   transition: transform ease-in-out 0.4s;
-  z-index: 100;
 
   &:hover {
     cursor: pointer;
@@ -42,6 +42,12 @@ const Button = styled.button<{
       width: fit-content;
       height: 60px;
       padding: 10px;
+    `}
+
+    ${({ top }) =>
+    top &&
+    css`
+      z-index: ${({ theme }) => theme.zIndex.middle};
     `}
 `;
 

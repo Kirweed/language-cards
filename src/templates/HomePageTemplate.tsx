@@ -17,9 +17,10 @@ const StyledMainWrapper = styled.div`
 
 const StyledButton = styled(Button)`
   position: absolute;
-  z-index: 100;
-  top: 30px;
+  top: 1vh;
   right: 30px;
+  width: 100px;
+  height: 50px;
 `;
 
 const StyledWrapper = styled.div<{ left?: boolean; right?: boolean }>`
@@ -60,7 +61,7 @@ const HomePageTemplate = () => {
 
   return (
     <>
-      <StyledButton secondary onClick={handleModal}>
+      <StyledButton secondary top onClick={handleModal}>
         Sign in!
       </StyledButton>
       <SignInModal showed={isModalOpen} handleModalFn={handleModal} />

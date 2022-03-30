@@ -9,11 +9,12 @@ const StyledFooter = styled.footer`
   height: 7vh;
   width: 100%;
   bottom: 0;
-  z-index: 100;
+  z-index: ${({ theme }) => theme.zIndex.middleBottom};
   text-align: center;
   color: ${({ theme }) => theme.colors.darkRed};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: #eae7dc;
+  border-top: 2px solid ${({ theme }) => theme.colors.darkRed};
 `;
 
 const Footer = () => (

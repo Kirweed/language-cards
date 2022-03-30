@@ -11,6 +11,7 @@ import Input from "../components/atoms/Input";
 import ErrorMessage from "../components/atoms/ErrorMessage";
 import LanguageCard from "../components/molecules/LanguageCard";
 import AddCardModal from "../components/organisms/AddCardModal";
+import BackButton from "../components/atoms/BackButton";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -261,12 +262,12 @@ const CollectionView = () => {
           </StyledWrapper>
         )}
       </>
-      <StyledButton secondary left big onClick={redirectManageView}>
+      <BackButton secondary big onClick={redirectManageView}>
         Back to choose collection
         <br />
         <i className="fas fa-long-arrow-alt-left" />
-      </StyledButton>
-      <StyledButton right onClick={() => handleModal(!isModalOpen)}>
+      </BackButton>
+      <StyledButton top right onClick={() => handleModal(!isModalOpen)}>
         Create new language card
         <br />
         <i className="fas fa-plus" />
