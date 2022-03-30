@@ -14,6 +14,7 @@ const RegisterView = () => {
     username: "",
     password: "",
     password2: "",
+    email: "",
     collectionName: "",
     nativeLanguage: "",
     learnLanguage: "",

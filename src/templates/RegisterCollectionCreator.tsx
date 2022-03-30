@@ -118,27 +118,27 @@ const RegisterCollectionCreator = ({
   useEffect(() => {
     if (name.length >= 3 && name.length <= 50) {
       setErrors({ ...errors, name: false });
-      setCorrectInput({ ...correctInput, name: true });
+      setCorrectInput((prevState) => ({ ...prevState, name: true }));
     } else {
-      setCorrectInput({ ...correctInput, name: false });
+      setCorrectInput((prevState) => ({ ...prevState, name: false }));
     }
   }, [name]);
 
   useEffect(() => {
     if (learnLanguage.length >= 3 && learnLanguage.length <= 35) {
       setErrors({ ...errors, learnLanguage: false });
-      setCorrectInput({ ...correctInput, learnLanguage: true });
+      setCorrectInput((prevState) => ({ ...prevState, learnLanguage: true }));
     } else {
-      setCorrectInput({ ...correctInput, learnLanguage: false });
+      setCorrectInput((prevState) => ({ ...prevState, learnLanguage: false }));
     }
   }, [learnLanguage]);
 
   useEffect(() => {
     if (nativeLanguage.length >= 3 && nativeLanguage.length <= 35) {
       setErrors({ ...errors, nativeLanguage: false });
-      setCorrectInput({ ...correctInput, nativeLanguage: true });
+      setCorrectInput((prevState) => ({ ...prevState, nativeLanguage: true }));
     } else {
-      setCorrectInput({ ...correctInput, nativeLanguage: false });
+      setCorrectInput((prevState) => ({ ...prevState, nativeLanguage: false }));
     }
   }, [nativeLanguage]);
 

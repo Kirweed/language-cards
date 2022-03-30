@@ -134,6 +134,7 @@ const RegisterCardsCreator = ({
       }
       setNativeWord("");
       setLearnWord("");
+      setCorrectInput({ learnWord: false, nativeWord: false });
     }
   };
 
@@ -144,18 +145,18 @@ const RegisterCardsCreator = ({
   useEffect(() => {
     if (nativeWord.length >= 3 && nativeWord.length <= 50) {
       setError({ ...errors, nativeWord: false });
-      setCorrectInput({ ...correctInput, nativeWord: true });
+      setCorrectInput((prevState) => ({ ...prevState, nativeWord: true }));
     } else {
-      setCorrectInput({ ...correctInput, nativeWord: false });
+      setCorrectInput((prevState) => ({ ...prevState, nativeWord: false }));
     }
   }, [nativeWord]);
 
   useEffect(() => {
     if (learnWord.length >= 3 && learnWord.length <= 35) {
       setError({ ...errors, learnWord: false });
-      setCorrectInput({ ...correctInput, learnWord: true });
+      setCorrectInput((prevState) => ({ ...prevState, learnWord: true }));
     } else {
-      setCorrectInput({ ...correctInput, learnWord: false });
+      setCorrectInput((prevState) => ({ ...prevState, learnWord: false }));
     }
   }, [learnWord]);
 
