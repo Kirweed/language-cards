@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Button from "./Button";
 
-const BackButton = styled(Button)`
+const CreateButton = styled(Button)`
   z-index: ${({ theme }) => theme.zIndex.middle};
   position: fixed;
   top: 1vh;
-  left 30px;
+  width: 180px;
   height: 50px;
-  width: 130px;
+  right: 30px;
 `;
 
-export default BackButton;
+export default CreateButton;

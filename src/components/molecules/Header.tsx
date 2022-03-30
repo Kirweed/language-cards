@@ -15,7 +15,7 @@ const StyledHeading = styled(Heading)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #eae7dc;
+  background-color: ${({ theme }) => theme.colors.light};
   border-bottom: 2px solid ${({ theme }) => theme.colors.darkRed};
 `;
 

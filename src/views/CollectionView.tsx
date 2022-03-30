@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import Footer from "../components/atoms/Footer";
@@ -12,18 +12,20 @@ import ErrorMessage from "../components/atoms/ErrorMessage";
 import LanguageCard from "../components/molecules/LanguageCard";
 import AddCardModal from "../components/organisms/AddCardModal";
 import BackButton from "../components/atoms/BackButton";
+import CreateButton from "../components/atoms/CreateButton";
 
 const StyledWrapper = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  margin-top: 200px;
+  margin-top: 17vh;
   padding: 30px;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   height: fit-content;
   border: 1px solid ${({ theme }) => theme.colors.dark};
+  color: ${({ theme }) => theme.colors.dark};
 `;
 
 const StyledInlineBox = styled.div`
@@ -33,23 +35,6 @@ const StyledInlineBox = styled.div`
   h3 {
     font-weight: inherit;
   }
-`;
-
-const StyledButton = styled(Button)<{ right?: boolean; left?: boolean }>`
-  position: fixed;
-  top: 30px;
-
-  ${({ right }) =>
-    right &&
-    css`
-      right: 30px;
-    `};
-
-  ${({ left }) =>
-    left &&
-    css`
-      left: 30px;
-    `}
 `;
 
 const StyledEditButton = styled.button`
@@ -263,15 +248,15 @@ const CollectionView = () => {
         )}
       </>
       <BackButton secondary big onClick={redirectManageView}>
-        Back to choose collection
+        Back
         <br />
         <i className="fas fa-long-arrow-alt-left" />
       </BackButton>
-      <StyledButton top right onClick={() => handleModal(!isModalOpen)}>
-        Create new language card
+      <CreateButton top onClick={() => handleModal(!isModalOpen)}>
+        Add card
         <br />
         <i className="fas fa-plus" />
-      </StyledButton>
+      </CreateButton>
       <AddCardModal showed={isModalOpen} handleModalFn={handleModalFn} />
       <Footer />
     </>

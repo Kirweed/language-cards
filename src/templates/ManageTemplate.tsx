@@ -4,13 +4,13 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import Button from "../components/atoms/Button";
 import Footer from "../components/atoms/Footer";
 import Header from "../components/molecules/Header";
 import Heading from "../components/atoms/Heading";
 import AddCollectionModal from "../components/organisms/AddCollectionModal";
 import ConfirmationModal from "../components/organisms/ConfirmationModal";
 import BackButton from "../components/atoms/BackButton";
+import CreateButton from "../components/atoms/CreateButton";
 
 const StyledGrid = styled.div`
   margin: 10px auto 50px auto;
@@ -33,7 +33,7 @@ const StyledBox = styled.div`
   height: 250px;
   border-radius: 20px;
   gap: 30%;
-  background-color: ${({ theme }) => theme.colors.brown};
+  background-color: ${({ theme }) => theme.colors.dark};
 
   &:hover {
     cursor: pointer;
@@ -44,12 +44,6 @@ const StyledBox = styled.div`
 
 const StyledWrapper = styled.div`
     margin-top 120px;
-`;
-
-const StyledButton = styled(Button)`
-  position: fixed;
-  top: 30px;
-  right: 30px;
 `;
 
 const StyledTitle = styled.h2`
@@ -65,7 +59,7 @@ const StyledIconWrapper = styled.div`
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    color: #990308;
+    color: ${({ theme }) => theme.colors.error};
   }
 `;
 
@@ -130,53 +124,19 @@ const ManageTemplate = () => {
               </StyledBox>
             ))
           ) : (
-            <>
-              <StyledBox>
-                <div>
-                  <StyledTitle>Uczysz się:</StyledTitle>
-                  <StyledTitle>English</StyledTitle>
-                </div>
-
-                <div>
-                  <StyledP>Animals</StyledP>
-                  <StyledP>78 słówka</StyledP>
-                </div>
-              </StyledBox>
-              <StyledBox>
-                <div>
-                  <StyledTitle>Uczysz się:</StyledTitle>
-                  <StyledTitle>English</StyledTitle>
-                </div>
-
-                <div>
-                  <StyledP>Character trails</StyledP>
-                  <StyledP>17 słówka</StyledP>
-                </div>
-              </StyledBox>
-              <StyledBox>
-                <div>
-                  <StyledTitle>Uczysz się:</StyledTitle>
-                  <StyledTitle>Hiszpański</StyledTitle>
-                </div>
-
-                <div>
-                  <StyledP>Zwierzęta</StyledP>
-                  <StyledP>64 słówka</StyledP>
-                </div>
-              </StyledBox>
-            </>
+            <Heading>Nothing there!</Heading>
           )}
         </StyledGrid>
         <BackButton secondary big onClick={navigateDashboard}>
-          Back to dashboard
+          Back
           <br />
           <i className="fas fa-long-arrow-alt-left" />
         </BackButton>
-        <StyledButton top onClick={() => setModalOpen(true)}>
-          Create new Collection
+        <CreateButton top onClick={() => setModalOpen(true)}>
+          Add collection
           <br />
           <i className="fas fa-plus" />
-        </StyledButton>
+        </CreateButton>
       </StyledWrapper>
       <Footer />
     </>

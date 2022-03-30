@@ -13,7 +13,7 @@ const StyledFooter = styled.footer`
   text-align: center;
   color: ${({ theme }) => theme.colors.darkRed};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  background-color: #eae7dc;
+  background-color: ${({ theme }) => theme.colors.light};
   border-top: 2px solid ${({ theme }) => theme.colors.darkRed};
 `;
 

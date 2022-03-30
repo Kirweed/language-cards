@@ -4,6 +4,7 @@ const Heading = styled.h1`
   margin: 10px;
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
+  color: ${({ theme }) => theme.colors.dark};
   letter-spacing: 1.5px;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-transform: uppercase;

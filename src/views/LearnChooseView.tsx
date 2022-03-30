@@ -7,7 +7,7 @@ import Header from "../components/molecules/Header";
 import CollectionGrid from "../components/organisms/CollectionGrid";
 
 const StyledWrapper = styled.div`
-    margin-top 120px;
+    margin-top 17vh;
 `;
 
 const LearnChooseView = () => {
@@ -21,7 +21,7 @@ const LearnChooseView = () => {
     <>
       <Header />
       <BackButton secondary big onClick={navigateDashboard}>
-        Back to dashboard
+        Back
         <br />
         <i className="fas fa-long-arrow-alt-left" />
       </BackButton>

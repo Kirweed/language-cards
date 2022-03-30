@@ -18,6 +18,7 @@ const StyledAlert = styled.div`
   background-color: white;
   border-radius: 20px;
   padding: 20px;
+  color: ${({ theme }) => theme.colors.dark};
 `;
 
 const StyledButtons = styled.div`

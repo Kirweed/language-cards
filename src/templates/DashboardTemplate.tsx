@@ -16,7 +16,8 @@ const StyledGrid = styled.div`
 `;
 
 const StyledBox = styled.div`
-  background-color: ${({ theme }) => theme.colors.brown};
+  background-color: ${({ theme }) => theme.colors.dark};
+  color: ${({ theme }) => theme.colors.almostWhite};
   width: 250px;
   height: 250px;
   border-radius: 20px;

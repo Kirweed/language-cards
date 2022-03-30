@@ -1,10 +1,11 @@
 export const theme = {
   colors: {
-    light: "#eae7dc",
-    dark: "#8e8d8a",
-    brown: "#d8c3a5",
-    lightRed: "e98074",
-    darkRed: "#e85a4f"
+    light: "#e4ddf4",
+    dark: "#2d2d2d",
+    darkGreen: "#282612",
+    almostWhite: "#fffbf0",
+    darkRed: "#943d24",
+    error: "#ed4337"
   },
   fontSize: {
     s: "1.2rem",

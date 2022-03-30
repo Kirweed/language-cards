@@ -5,6 +5,7 @@ const StyledWrapper = styled.div`
   width: 80%;
   margin: 16vh auto 0 auto;
   position: relative;
+  color: ${({ theme }) => theme.colors.dark};
 `;
 
 const StyledLineWrapper = styled.div`

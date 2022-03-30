@@ -12,7 +12,8 @@ const StyledLanguageCard = styled.div`
   height: 170px;
   border-radius: 20px;
   gap: 30%;
-  background-color: ${({ theme }) => theme.colors.brown};
+  background-color: ${({ theme }) => theme.colors.dark};
+  color: ${({ theme }) => theme.colors.almostWhite};
 
   &:hover {
     cursor: pointer;
@@ -29,7 +30,7 @@ const StyledBin = styled.div`
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    color: #990308;
+    color: ${({ theme }) => theme.colors.error};
   }
 `;
 

@@ -107,7 +107,7 @@ const LearnView = () => {
     <>
       <Header />
       <BackButton secondary big onClick={navigateLearnChoosing}>
-        Back to choosing collection
+        Back
         <br />
         <i className="fas fa-long-arrow-alt-left" />
       </BackButton>

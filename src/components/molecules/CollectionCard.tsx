@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
   height: 250px;
   border-radius: 20px;
   gap: 30%;
-  background-color: ${({ theme }) => theme.colors.brown};
+  background-color: ${({ theme }) => theme.colors.dark};
 
   &:hover {
     cursor: pointer;
