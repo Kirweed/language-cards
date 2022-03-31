@@ -49,11 +49,13 @@ const StyledIcon = styled.div<{ error?: boolean }>`
 const RegisterMainCreator = ({
   setDataFn,
   beforeData,
-  setStage
+  setStage,
+  recordExsistMessage
 }: {
   setDataFn: (data: any) => void;
   beforeData: any;
   setStage: (stage: number) => void;
+  recordExsistMessage: string;
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -239,6 +241,9 @@ const RegisterMainCreator = ({
       </StyledInputWrapper>
       {errors.password2 && (
         <ErrorMessage>Passwords must be the same!</ErrorMessage>
+      )}
+      {recordExsistMessage && (
+        <ErrorMessage>{recordExsistMessage}</ErrorMessage>
       )}
       <StyledButtonsWrapper>
         <Button type="button" small onClick={goSubmit}>

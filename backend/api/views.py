@@ -5,6 +5,15 @@ from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
 from django.db.models import Prefetch
 from rest_framework.response import Response
+from rest_framework import status
+
+
+def username_exists(username):
+    return User.objects.filter(username=username).exists()
+
+
+def email_exists(email):
+    return User.objects.filter(email=email).exists()
 
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
@@ -15,9 +24,20 @@ class UserRegisterViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         post_data = request.data
-        user = User.objects.create_user(
-            password=post_data["password"], username=post_data["username"])
-        return Response('User has been sucesfully created')
+        if not username_exists(post_data["username"]):
+            if not email_exists(post_data["email"]):
+                user = User.objects.create_user(
+                    password=post_data["password"], email=post_data["email"], username=post_data["username"])
+                userInfo = UserInfo.objects.create(user=user, points=0)
+                collection = Collection.objects.create(
+                    owner=userInfo, native_language=post_data['nativeLanguage'], learn_language=post_data['learnLanguage'], name=post_data['collectionName'])
+                for card in post_data["languageCards"]:
+                    LanguageCard.objects.create(
+                        collection=collection, learn_word=card["learnWord"], native_word=card["nativeWord"])
+                return Response('User has been sucesfully created')
+
+            return Response('There is already acount with this email!', status=status.HTTP_409_CONFLICT)
+        return Response('User already exist!', status=status.HTTP_409_CONFLICT)
 
 
 class UserViewSet(viewsets.ModelViewSet):

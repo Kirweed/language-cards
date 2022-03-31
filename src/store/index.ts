@@ -94,12 +94,27 @@ interface AddCollectionInterface {
 }
 
 export const registerUser =
-  (dataToregister: DataToRegister) => (dispatch: any) => {
+  (
+    dataToregister: DataToRegister,
+    setRecordExsistMessage: (a: string) => void
+  ) =>
+  (dispatch: any) => {
     dispatch({ type: REGISTER_USER_REQUEST });
     return axios
       .post("http://localhost:8000/api/register/", dataToregister)
-      .then(() => dispatch({ type: REGISTER_USER_SUCCESS }))
-      .catch(() => dispatch({ type: REGISTER_USER_FAILURE }));
+      .then((response) => {
+        dispatch({ type: REGISTER_USER_SUCCESS });
+        if (response.status >= 200 && response.status < 400) {
+          setRecordExsistMessage("");
+        }
+        console.log(response);
+      })
+      .catch((e) => {
+        dispatch({ type: REGISTER_USER_FAILURE });
+        if (e.response.status === 409) {
+          setRecordExsistMessage(e.response.data);
+        }
+      });
   };
 
 export const addCollectionAction =
