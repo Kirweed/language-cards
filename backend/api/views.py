@@ -8,6 +8,16 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+def validateEmail(email):
+    from django.core.validators import validate_email
+    from django.core.exceptions import ValidationError
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
+
+
 def username_exists(username):
     return User.objects.filter(username=username).exists()
 
@@ -26,16 +36,27 @@ class UserRegisterViewSet(viewsets.ModelViewSet):
         post_data = request.data
         if not username_exists(post_data["username"]):
             if not email_exists(post_data["email"]):
-                user = User.objects.create_user(
-                    password=post_data["password"], email=post_data["email"], username=post_data["username"])
-                userInfo = UserInfo.objects.create(user=user, points=0)
-                collection = Collection.objects.create(
-                    owner=userInfo, native_language=post_data['nativeLanguage'], learn_language=post_data['learnLanguage'], name=post_data['collectionName'])
-                for card in post_data["languageCards"]:
-                    LanguageCard.objects.create(
-                        collection=collection, learn_word=card["learnWord"], native_word=card["nativeWord"])
-                return Response('User has been sucesfully created')
+                valid = True
+                if not validateEmail(post_data["email"]):
+                    valid = False
+                if post_data["password"] != post_data["password2"]:
+                    valid = False
+                if len(post_data["username"]) > 25 or len(post_data["username"]) < 3:
+                    valid = False
+                if len(post_data["password"]) > 30 or len(post_data["password"]) < 6:
+                    valid = False
+                if valid:
+                    user = User.objects.create_user(
+                        password=post_data["password"], email=post_data["email"], username=post_data["username"])
+                    userInfo = UserInfo.objects.create(user=user, points=0)
+                    collection = Collection.objects.create(
+                        owner=userInfo, native_language=post_data['nativeLanguage'], learn_language=post_data['learnLanguage'], name=post_data['collectionName'])
+                    for card in post_data["languageCards"]:
+                        LanguageCard.objects.create(
+                            collection=collection, learn_word=card["learnWord"], native_word=card["nativeWord"])
+                    return Response('User has been sucesfully created')
 
+                return Response("Somethings goes wrong, try again", status=status.HTTP_400_BAD_REQUEST)
             return Response('There is already acount with this email!', status=status.HTTP_409_CONFLICT)
         return Response('User already exist!', status=status.HTTP_409_CONFLICT)
 
