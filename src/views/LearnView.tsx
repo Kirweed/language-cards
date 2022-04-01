@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import BackButton from "../components/atoms/BackButton";
@@ -7,8 +7,9 @@ import Button from "../components/atoms/Button";
 import CharBox from "../components/atoms/CharBox";
 import Footer from "../components/atoms/Footer";
 import Heading from "../components/atoms/Heading";
+import PointsBar from "../components/atoms/PointsBar";
 import Header from "../components/molecules/Header";
-import { RootState } from "../store";
+import { RootState, updatePointsAction } from "../store";
 import getRandomInt from "../utilities/getRandomInt";
 
 const StyledWrapper = styled.div`
@@ -37,6 +38,9 @@ const LearnView = () => {
   });
   const [isWaitingForWord, setWaitingForWord] = useState(false);
   const [shake, setShake] = useState(false);
+  const [points, setPoints] = useState<null | number>(null);
+  const [userInfoId, setUserInfoId] = useState<null | number>(null);
+  const dispatch = useDispatch();
 
   const getRandomCard = () => {
     const randomRecord = getRandomInt(0, cardArr.length - 1);
@@ -57,6 +61,10 @@ const LearnView = () => {
             .language_card
         );
         setWaitingForWord(true);
+      }
+      if (reducer.user) {
+        setPoints(reducer.user.points);
+        setUserInfoId(reducer.user.userInfoId);
       }
     }, [reducer]);
 
@@ -96,6 +104,10 @@ const LearnView = () => {
       finalAnswear = `${finalAnswear}${item}`;
     });
     if (finalAnswear.toUpperCase() === currentRecord.learn_word.toUpperCase()) {
+      const token = localStorage.getItem("ACCESS_TOKEN");
+      if (points !== null) {
+        dispatch(updatePointsAction(token, userInfoId, points + 1));
+      }
       setWaitingForWord(true);
     } else {
       setShake(true);
@@ -106,6 +118,10 @@ const LearnView = () => {
   return id ? (
     <>
       <Header />
+      <PointsBar>
+        <p>points:</p>
+        {typeof points === "number" && points}
+      </PointsBar>
       <BackButton secondary big onClick={navigateLearnChoosing}>
         Back
         <br />
@@ -121,7 +137,8 @@ const LearnView = () => {
                 <CharBox
                   type="text"
                   shake={shake}
-                  key={item}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
                   maxLength={1}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleInputChange(e, index)

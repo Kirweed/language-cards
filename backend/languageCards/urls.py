@@ -20,18 +20,23 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from api.views import UserRegisterViewSet, UserViewSet, CollectionManagingViewSet, LanguageCardsManagingViewSet
+from api.views import UserRegisterViewSet, UserViewSet, CollectionManagingViewSet, LanguageCardsManagingViewSet, UserInfoViewSet
 
 
 router = DefaultRouter()
 router.register(r'api/language-cards', UserViewSet, basename='get_user')
-router.register(r'api/collection', CollectionManagingViewSet, basename='collection')
-router.register(r'api/edit_language_cards', LanguageCardsManagingViewSet, basename='language_card')
+router.register(r'api/collection', CollectionManagingViewSet,
+                basename='collection')
+router.register(r'api/edit_language_cards',
+                LanguageCardsManagingViewSet, basename='language_card')
 router.register(r'api/register', UserRegisterViewSet, basename='register')
+router.register(r'api/user_info', UserInfoViewSet, basename='user_info')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/auth/token/', TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('api/auth/token/refresh/',
+         TokenRefreshView.as_view(), name='token_refresh'),
     path('', include(router.urls)),
 ]

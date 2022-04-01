@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import UserInfo, Collection, LanguageCard
 from django.contrib.auth.models import User
 
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -29,15 +30,16 @@ class CollectionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collection
-        fields = ['id', 'native_language', 'learn_language', 'name', 'language_card']
+        fields = ['id', 'native_language',
+                  'learn_language', 'name', 'language_card']
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
-    collection = CollectionsSerializer(many=True)  
+    collection = CollectionsSerializer(many=True)
 
     class Meta:
         model = UserInfo
-        fields = ['points', 'collection']
+        fields = ['id', 'points', 'collection']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -54,7 +56,8 @@ class CollectionManagingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collection
-        fields = ['id', 'native_language', 'learn_language', 'name', 'language_card', 'owner']
+        fields = ['id', 'native_language', 'learn_language',
+                  'name', 'language_card', 'owner']
 
 
 class LanguageCardsManagingSerializer(serializers.ModelSerializer):

@@ -31,6 +31,10 @@ const REGISTER_USER_REQUEST = "REGISTER_USER_REQUEST";
 const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
 const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
 
+const UPDATE_POINTS_REQUEST = "UPDATE_POINTS_REQUEST";
+const UPDATE_POINTS_SUCCESS = "UPDATE_POINTS_SUCCESS";
+const UPDATE_POINTS_FAILURE = "UPDATE_POINTS_FAILURE";
+
 /// actions
 
 export const getInitialData =
@@ -53,7 +57,8 @@ export const getInitialData =
               user: {
                 username: data.username,
                 email: data.email,
-                points: data.user_info.points
+                points: data.user_info.points,
+                userInfoId: data.user_info.id
               },
               collections: [...data.user_info.collection]
             }
@@ -92,6 +97,24 @@ interface AddCollectionInterface {
   learn_language: string;
   name: string;
 }
+
+export const updatePointsAction =
+  (token: string | null, id: number | null, points: number) =>
+  (dispatch: any) => {
+    dispatch({ type: UPDATE_POINTS_REQUEST });
+    return axios
+      .patch(
+        `http://localhost:8000/api/user_info/${id}/`,
+        { points },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(() => dispatch({ type: UPDATE_POINTS_SUCCESS, payload: points }))
+      .catch(() => dispatch({ type: UPDATE_POINTS_FAILURE }));
+  };
 
 export const registerUser =
   (
@@ -226,6 +249,7 @@ interface UserInterface {
   username: string;
   email: string;
   points: number;
+  userInfoId: number;
 }
 
 interface CardInterface {
@@ -345,6 +369,18 @@ const rootReducer = (state = initialState, action: any) => {
                 ]
               }
             ]
+          }
+        : {
+            ...state
+          };
+    case UPDATE_POINTS_SUCCESS:
+      return state.user
+        ? {
+            ...state,
+            user: {
+              ...state.user,
+              points: action.payload
+            }
           }
         : {
             ...state
